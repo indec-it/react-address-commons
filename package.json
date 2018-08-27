@@ -1,0 +1,57 @@
+{
+  "name": "@indec/react-address-commons",
+  "version": "0.1.0",
+  "description": "Common react components for address apps",
+  "private": false,
+  "main": "src/index.js",
+  "scripts": {
+    "test": "eslint ./",
+    "precommit": "npm test",
+    "commitmsg": "commitlint -e"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/travis-cli": "^7.0.0",
+    "@indec/heimdall": "0.2.6",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.5",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^0.14.3",
+    "lodash": "^4.17.5",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "redux-saga": "^0.16.0"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.0",
+    "prop-types": "^15.5.10",
+    "react": ">=16.3.0"
+  },
+  "engines": {
+    "node": ">= 8.11"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "address",
+    "census"
+  ],
+  "author": "INDEC (https://github.com/indec-it)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indec-it/react-address-commons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/indec-it/react-address-commons/issues"
+  },
+  "homepage": "https://github.com/indec-it/react-address-commons"
+}

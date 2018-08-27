@@ -1,0 +1,5 @@
+{
+  "name": "@indec/react-address-commons/sagas",
+  "private": true,
+  "main": "../src/sagas/index.js"
+}
