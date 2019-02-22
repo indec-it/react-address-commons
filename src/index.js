@@ -1,4 +1,5 @@
 import Logs from './components/Logs';
+import Users from './components/Users/UsersList';
 
-// eslint-disable-next-line
 export {Logs};
+export {Users};
