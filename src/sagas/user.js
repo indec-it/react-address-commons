@@ -1,6 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 
-import {anErrorOccurred, clearError} from '../actions/common';
+import {handleError} from '../actions/common';
 import {receiveUsers, receiveUser} from '../actions/user';
 import UserService from '../services/user';
 
@@ -13,16 +13,15 @@ export function* fetchUsers({
         } = yield call(UserService.fetch, state, rol, term, skip);
         yield put(receiveUsers(users, usersCount, pageSize, states));
     } catch (err) {
-        yield put(anErrorOccurred({anErrorOccurred: true, errorMsg: err}));
+        yield put(handleError(err));
     }
 }
 
 export function* findUser({id}) {
-    yield put(clearError());
-    const user = yield call(UserService.findById, id);
-    if (user.error) {
-        yield put(anErrorOccurred({anErrorOccurred: true, errorMsg: user.error}));
-    } else {
+    try {
+        const user = yield call(UserService.findById, id);
         yield put(receiveUser(user));
+    } catch (err) {
+        yield put(handleError(err));
     }
 }
