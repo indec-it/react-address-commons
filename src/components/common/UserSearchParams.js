@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Col, Row} from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Col, Row} from 'react-bootstrap';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {Dropdown, TextField} from '@indec/react-commons';
+import {Dropdown, IconButton, TextField} from '@indec/react-commons';
 
 const UserSearchParams = ({
     states, roles, state, rol, term, onChange, onSubmit
@@ -37,9 +36,7 @@ const UserSearchParams = ({
         </Col>
         <Col sm={1} className="text-center">
             <br/>
-            <Button onClick={onSubmit}>
-                <FontAwesomeIcon icon={faSearch}/>
-            </Button>
+            <IconButton onClick={onSubmit} icon={faSearch}/>
         </Col>
     </Row>
 );

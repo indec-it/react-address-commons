@@ -2,16 +2,14 @@ import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Row, Col, Grid} from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSync} from '@fortawesome/free-solid-svg-icons';
-import {LoadingIndicator, Pages} from '@indec/react-commons';
+import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
 import {Log} from '../../model';
-import LogsTable from './LogsTable';
 import {UserSearchParams} from '../common';
-
 import {requestFetchStates} from '../../actions/review';
 import {requestFetchSyncTask} from '../../actions/log';
+import LogsTable from './LogsTable';
 
 class Logs extends PureComponent {
     static propTypes = {
@@ -74,15 +72,7 @@ class Logs extends PureComponent {
         } = this.props;
         return (
             <Grid fluid>
-                <Row>
-                    <Col sm={12}>
-                        <h2>
-                            <FontAwesomeIcon icon={faSync}/>
-                            &nbsp;
-                            Sincronizaciones realizadas
-                        </h2>
-                    </Col>
-                </Row>
+                <PageHeader icon={faSync} title="Sincronizaciones realizadas"/>
                 <Row>
                     <Col sm={12}>
                         <hr className="hr-title"/>
@@ -101,9 +91,8 @@ class Logs extends PureComponent {
                     <Fragment>
                         <LogsTable logs={logs}/>
                         <Pages
-                            pageSize={pageSize}
+                            {...{pageSize, selectedPage}}
                             resultsCount={logsCount}
-                            selectedPage={selectedPage}
                             onChange={page => this.handleChangePage(page)}
                         />
                     </Fragment>

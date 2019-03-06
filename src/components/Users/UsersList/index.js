@@ -2,10 +2,9 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Col, Grid, Row} from 'react-bootstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {concat, isEmpty} from 'lodash';
-import {LoadingIndicator, Pages} from '@indec/react-commons';
+import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
 import UsersTable from './UsersTable';
 import {UserSearchParams} from '../../common';
@@ -71,15 +70,7 @@ class UsersList extends Component {
         } = this.props;
         return (
             <Grid>
-                <Row>
-                    <Col sm={12}>
-                        <h2>
-                            <FontAwesomeIcon icon={faUser}/>
-                            &nbsp;
-                            Usuarios
-                        </h2>
-                    </Col>
-                </Row>
+                <PageHeader icon={faUser} title="Usuarios"/>
                 <Row>
                     <Col sm={12}>
                         <hr className="hr-title"/>

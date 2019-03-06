@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {
-    Button, ButtonToolbar, Col, Row, Table
+    ButtonToolbar, Col, Row, Table
 } from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAddressCard, faWrench} from '@fortawesome/free-solid-svg-icons';
+import {IconLinkButton} from '@indec/react-commons';
 import {includes} from 'lodash';
 
 import {roles} from '../../../constants';
@@ -52,13 +52,11 @@ const UsersTable = ({users, userCredentialsRoute}) => (
                             </td>
                             <td className="text-center">
                                 <ButtonToolbar>
-                                    <Button
-                                        componentClass={Link}
+                                    <IconLinkButton
                                         to={`${userCredentialsRoute}/${user._id}`}
+                                        icon={faAddressCard}
                                         title="Credencial"
-                                    >
-                                        <FontAwesomeIcon icon={faAddressCard}/>
-                                    </Button>
+                                    />
                                 </ButtonToolbar>
                             </td>
                         </tr>

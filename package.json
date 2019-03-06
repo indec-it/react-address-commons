@@ -16,7 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.3",
     "@indec/heimdall": "^0.2.8",
-    "@indec/react-commons": "^0.0.4",
+    "@indec/react-commons": "indec-it/react-commons",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",

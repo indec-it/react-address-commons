@@ -1,5 +1,5 @@
 import {
-    AN_ERROR_OCCURRED, CLEAR_ERROR, anErrorOccurred, clearError
+    ERROR_OCCURRED, CLEAR_ERROR, handleError, clearError
 } from './common';
 import {
     FETCH_SYNC_LOG_REQUESTED, FETCH_SYNC_LOG_SUCCEEDED, requestFetchSyncTask, receiveSyncTask
@@ -20,14 +20,15 @@ import {
 
 export {FETCH_SYNC_LOG_REQUESTED};
 export {FETCH_SYNC_LOG_SUCCEEDED};
+export {ERROR_OCCURRED};
 export {STATES_FETCH_REQUESTED};
 export {STATES_FETCH_SUCCEEDED};
 export {USERS_FETCH_REQUESTED};
 export {USERS_FETCH_SUCCEEDED};
 export {USER_FETCH_REQUESTED};
 export {USER_FETCH_SUCCEEDED};
-export {AN_ERROR_OCCURRED};
 export {CLEAR_ERROR};
+export {handleError};
 export {requestFetchSyncTask};
 export {receiveSyncTask};
 export {requestFetchStates};
@@ -36,5 +37,4 @@ export {requestUsers};
 export {receiveUsers};
 export {requestUser};
 export {receiveUser};
-export {anErrorOccurred};
 export {clearError};

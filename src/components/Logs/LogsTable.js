@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Col, Table, Row} from 'react-bootstrap';
+import {DateUtilsService} from '@indec/react-commons/services';
 
 import {Log} from '../../model';
-import DateUtilsService from '../../services/dateUtils';
 
 const LogsTable = ({logs}) => (
     <Row>
