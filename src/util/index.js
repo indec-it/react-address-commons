@@ -1,4 +1,7 @@
+import chunkBlocksDwellings from './chunkBlocksDwellings';
+import getRadioData from './getRadioData';
 import getRoleName from './getRoleName';
 
-// eslint-disable-next-line
+export {chunkBlocksDwellings};
+export {getRadioData};
 export {getRoleName};

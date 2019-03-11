@@ -4,6 +4,8 @@ import {Col, Row} from 'react-bootstrap';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {Dropdown, IconButton, TextField} from '@indec/react-commons';
 
+import {statePropTypes} from '../../util/propTypes';
+
 const UserSearchParams = ({
     states, roles, state, rol, term, onChange, onSubmit
 }) => (
@@ -42,7 +44,7 @@ const UserSearchParams = ({
 );
 
 UserSearchParams.propTypes = {
-    states: PropTypes.arrayOf(PropTypes.shape({})),
+    states: PropTypes.arrayOf(statePropTypes),
     roles: PropTypes.arrayOf(PropTypes.shape({})),
     state: PropTypes.number,
     rol: PropTypes.string,

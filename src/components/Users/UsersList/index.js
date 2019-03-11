@@ -6,17 +6,17 @@ import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {concat, isEmpty} from 'lodash';
 import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
-import UsersTable from './UsersTable';
 import {UserSearchParams} from '../../common';
 import {optionsForUsersSelect} from '../../../constants';
 import {User} from '../../../model';
-
 import {requestUsers} from '../../../actions';
+import {statePropTypes} from '../../../util/propTypes';
+import UsersTable from './UsersTable';
 
 class UsersList extends Component {
     static propTypes = {
         requestUsers: PropTypes.func.isRequired,
-        states: PropTypes.arrayOf(PropTypes.shape({})),
+        states: PropTypes.arrayOf(statePropTypes),
         users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
         loading: PropTypes.bool,
         usersCount: PropTypes.number,

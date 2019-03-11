@@ -9,6 +9,7 @@ import {Log} from '../../model';
 import {UserSearchParams} from '../common';
 import {requestFetchStates} from '../../actions/review';
 import {requestFetchSyncTask} from '../../actions/log';
+import {statePropTypes} from '../../util/propTypes';
 import LogsTable from './LogsTable';
 
 class Logs extends PureComponent {
@@ -16,10 +17,7 @@ class Logs extends PureComponent {
         requestFetchSyncTask: PropTypes.func.isRequired,
         requestFetchStates: PropTypes.func.isRequired,
         logs: PropTypes.arrayOf(PropTypes.instanceOf(Log)),
-        states: PropTypes.arrayOf(PropTypes.shape({
-            _id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-        })),
+        states: PropTypes.arrayOf(statePropTypes),
         pageSize: PropTypes.number,
         logsCount: PropTypes.number,
         loading: PropTypes.bool
