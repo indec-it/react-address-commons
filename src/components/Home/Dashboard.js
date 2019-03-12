@@ -58,13 +58,13 @@ class Dashboard extends Component {
                         availableStates={availableStates}
                         selectedState={selectedState}
                         onCleanSelection={() => this.props.cleanMapSelection()}
-                        onStateClick={state => this.props.setMapState(state.properties.stateId)}
+                        onStateClick={state => this.props.setMapState(state.properties.state)}
                     />
                 </Col>
                 <Col sm={9} className="no-padding">
                     <MonitoringGraphics
                         province={general}
-                        stateId={selectedState.stateId}
+                        state={selectedState.state}
                         stateName={selectedState.name}
                         response={response}
                         logs={logs}
@@ -102,7 +102,7 @@ export default connect(
     dispatch => ({
         fetchOverview: profile => dispatch(fetchOverview(profile)),
         cleanOverviewReducer: () => dispatch(cleanOverviewReducer()),
-        setMapState: stateId => dispatch(setMapState(stateId)),
+        setMapState: state => dispatch(setMapState(state)),
         cleanMapSelection: () => dispatch(cleanMapSelection())
     })
 )(Dashboard);

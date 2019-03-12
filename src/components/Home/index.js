@@ -5,16 +5,11 @@ import {connect} from 'react-redux';
 import {Grid, Row, Col} from 'react-bootstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMap} from '@fortawesome/free-solid-svg-icons';
-import {includes} from 'lodash';
 
 import Manuals from './Manuals';
 import Dashboard from './Dashboard';
-import {roles} from '../../constants';
 import {User} from '../../model';
-
-const isNationalCoordinator = profile => (
-    includes(profile.roles, roles.NATIONAL_COORDINATOR_RO) || includes(profile.roles, roles.NATIONAL_COORDINATOR)
-);
+import {isNationalCoordinator} from '../../util';
 
 class Home extends PureComponent {
     static propTypes = {

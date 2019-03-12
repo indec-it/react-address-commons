@@ -8,8 +8,8 @@ import 'chartjs-plugin-datalabels';
 
 import {getTooltipLabel} from '../utils';
 
-const parseData = (logs, stateId) => {
-    const filteredLogs = stateId ? filter(logs, log => log.user.state === stateId) : logs;
+const parseData = (logs, state) => {
+    const filteredLogs = state ? filter(logs, log => log.user.state === state) : logs;
     const userNames = uniq(filteredLogs.map(log => log.user.username));
     return {
         labels: userNames,
@@ -23,7 +23,7 @@ const parseData = (logs, stateId) => {
     };
 };
 
-const Synchronization = ({logs, stateId}) => (
+const Synchronization = ({logs, state}) => (
     <div className="box-doughnut">
         <h4 className="synchronization text-center">
             <FontAwesomeIcon icon={faSync}/>
@@ -31,7 +31,7 @@ const Synchronization = ({logs, stateId}) => (
             Sincronizaciones
         </h4>
         <Bar
-            data={parseData(logs, stateId)}
+            data={parseData(logs, state)}
             height="100%"
             options={{
                 tooltips: {
@@ -64,7 +64,7 @@ const Synchronization = ({logs, stateId}) => (
 
 Synchronization.propTypes = {
     logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    stateId: PropTypes.number.isRequired
+    state: PropTypes.number.isRequired
 };
 
 export default Synchronization;

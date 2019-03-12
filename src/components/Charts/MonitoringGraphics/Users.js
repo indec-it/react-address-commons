@@ -11,12 +11,12 @@ import 'chartjs-plugin-datalabels';
 import {getTooltipLabel} from '../utils';
 import {roles as rolesEnum} from '../../../constants';
 
-const parseData = (users, stateId, roles) => {
+const parseData = (users, state, roles) => {
     const filteredUsers = filter(
         reject(users, u => (
             includes(u.roles, rolesEnum.NATIONAL_COORDINATOR) || includes(u.roles, rolesEnum.NATIONAL_COORDINATOR_RO))
         ),
-        u => (stateId ? u.state === stateId : true)
+        u => (state ? u.state === state : true)
     );
     const pollsters = sumBy(filteredUsers, u => toNumber(includes(u.roles, rolesEnum.POLLSTER)));
     const coordinators = sumBy(filteredUsers, u => toNumber(includes(u.roles, rolesEnum.COORDINATOR)));
@@ -100,7 +100,7 @@ const parseData = (users, stateId, roles) => {
     };
 };
 
-const Users = ({users, stateId, roles}) => (
+const Users = ({users, state, roles}) => (
     <div className="box-doughnut">
         <h4 className="users text-center">
             <FontAwesomeIcon icon={faAddressBook}/>
@@ -108,7 +108,7 @@ const Users = ({users, stateId, roles}) => (
             Personal Asignado al Operativo
         </h4>
         <Bar
-            data={parseData(users, stateId, roles)}
+            data={parseData(users, state, roles)}
             height="100%"
             options={{
                 tooltips: {
@@ -142,7 +142,7 @@ const Users = ({users, stateId, roles}) => (
 Users.propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    stateId: PropTypes.number.isRequired
+    state: PropTypes.number.isRequired
 };
 
 export default Users;

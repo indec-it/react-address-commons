@@ -32,7 +32,7 @@ const dwellings = dwelling => {
             borderColor: 'rgba(0, 68, 255, 1)',
             borderWidth: 1,
             data,
-            ...chartsColours(dwelling._id.stateId)
+            ...chartsColours(dwelling._id.state)
         }]
     };
 };

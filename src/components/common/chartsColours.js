@@ -1,7 +1,7 @@
 import {includes} from 'lodash';
 
-const chartsColours = stateId => {
-    if (includes([2, 4, 6], stateId)) {
+const chartsColours = state => {
+    if (includes([2, 4, 6], state)) {
         /**
          *  Región Buenos Aires
          */
@@ -12,7 +12,7 @@ const chartsColours = stateId => {
             hoverBorderColor: 'rgba(0, 0, 0, 1)'
         };
     }
-    if (includes([10, 18, 22, 34, 38, 46, 54, 66, 86, 90], stateId)) {
+    if (includes([10, 18, 22, 34, 38, 46, 54, 66, 86, 90], state)) {
         /**
          *  Región Norte
          */
@@ -23,7 +23,7 @@ const chartsColours = stateId => {
             hoverBorderColor: 'rgba(0, 0, 0, 1)'
         };
     }
-    if (includes([26, 42, 58, 62, 78, 94], stateId)) {
+    if (includes([26, 42, 58, 62, 78, 94], state)) {
         /**
          *  Región Patagónica
          */
@@ -34,7 +34,7 @@ const chartsColours = stateId => {
             hoverBorderColor: 'rgba(0, 0, 0, 1)'
         };
     }
-    if (includes([50, 70, 74], stateId)) {
+    if (includes([50, 70, 74], state)) {
         /**
          *  Región Cuyo
          */
@@ -45,7 +45,7 @@ const chartsColours = stateId => {
             hoverBorderColor: 'rgba(0, 0, 0, 1)'
         };
     }
-    if (includes([14, 30, 42, 82], stateId)) {
+    if (includes([14, 30, 42, 82], state)) {
         /**
          *  Región Centro
          */

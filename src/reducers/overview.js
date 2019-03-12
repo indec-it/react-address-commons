@@ -8,12 +8,12 @@ import {
     CLEAN_MAP_SELECTION
 } from '../actions';
 
-const generalState = {stateId: null, name: 'Argentina'};
+const generalState = {state: null, name: 'Argentina'};
 
-const getState = (states, stateId, defaultState = null) => {
-    const newState = find(states, state => state._id.stateId === stateId);
+const getState = (states, state, defaultState = null) => {
+    const newState = find(states, ({_id}) => _id.state === state);
     if (newState) {
-        return ({name: newState._id.stateName, stateId: newState._id.stateId});
+        return ({name: newState._id.stateName, state: newState._id.state});
     }
     return defaultState;
 };
@@ -31,12 +31,15 @@ export default function overview(state = {loading: false}, action) {
                 users: action.users,
                 availableStates: action.availableStates,
                 isNationalCoordinator: action.isNationalCoordinator,
-                selectedState: getState(action.general, state.profile.state, generalState),
+                selectedState: (
+                    action.isNationalCoordinator
+                        ? generalState : getState(action.general, state.profile.state, generalState)
+                ),
                 loading: false
             };
         case SET_MAP_STATE:
             if (state.isNationalCoordinator) {
-                return {...state, selectedState: getState(state.general, action.stateId, state.selectedState)};
+                return {...state, selectedState: getState(state.general, action.state, state.selectedState)};
             }
             return {...state};
         case CLEAN_MAP_SELECTION:

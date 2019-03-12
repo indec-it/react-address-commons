@@ -15,11 +15,11 @@ export const CABA = 'M2019 1984 c-47 -28 -58 -40 -63 -68 -4 -19 -13 -47 -22 -64 
 
 const projection = () => geoMercator().scale(100);
 
-const getColor = (selectedState, stateId, availableStates) => {
-    if (selectedState.stateId === stateId) {
+const getColor = (selectedState, state, availableStates) => {
+    if (selectedState.state === state) {
         return 'rgba(27, 83, 120, 1)';
     }
-    if (includes(availableStates, selectedState.stateId)) {
+    if (includes(availableStates, selectedState.state)) {
         return 'rgba(2, 141, 200, 1)';
     }
     return 'rgba(0, 0, 0, 0.1)';
@@ -33,7 +33,7 @@ const renderPopover = state => (
             <span>
                 <FontAwesomeIcon icon={faMapMarkerAlt}/>
                 &nbsp;
-                {state.stateId}
+                {state.state}
             </span>
         )}
     >
@@ -53,7 +53,7 @@ const Argentina = ({
             <g className="countries">
                 {feature(ArgentinaMap, ArgentinaMap.objects.argentina).features.map(d => (
                     <OverlayTrigger
-                        key={d.stateId}
+                        key={d.state}
                         trigger={['focus', 'hover']}
                         placement="bottom"
                         rootClose
@@ -66,7 +66,7 @@ const Argentina = ({
                             fill={
                                 getColor(
                                     d.properties,
-                                    selectedState.stateId,
+                                    selectedState.state,
                                     availableStates
                                 )
                             }
@@ -96,23 +96,23 @@ const Argentina = ({
                     placement="bottom"
                     rootClose
                     overlay={
-                        renderPopover({stateId: 4, name: 'GBA Partidos'})
+                        renderPopover({state: 4, name: 'GBA Partidos'})
                     }
                 >
                     <path
                         d={GBA}
                         fill={
                             getColor(
-                                {stateId: 4},
-                                selectedState.stateId,
+                                {state: 4},
+                                selectedState.state,
                                 availableStates
                             )
                         }
                         onClick={() => handleClick({
-                            properties: {stateId: 4, name: 'GBA Partidos'}
+                            properties: {state: 4, name: 'GBA Partidos'}
                         })}
                         onTouchStart={() => handleClick({
-                            properties: {stateId: 4, name: 'GBA Partidos'}
+                            properties: {state: 4, name: 'GBA Partidos'}
                         })}
                     />
                 </OverlayTrigger>
@@ -121,23 +121,23 @@ const Argentina = ({
                     placement="bottom"
                     rootClose
                     overlay={
-                        renderPopover({stateId: 2, name: 'CABA'})
+                        renderPopover({state: 2, name: 'CABA'})
                     }
                 >
                     <path
                         d={CABA}
                         fill={
                             getColor(
-                                {stateId: 2},
-                                selectedState.stateId,
+                                {state: 2},
+                                selectedState.state,
                                 availableStates
                             )
                         }
                         onClick={() => handleClick({
-                            properties: {stateId: 2, name: 'CABA'}
+                            properties: {state: 2, name: 'CABA'}
                         })}
                         onTouchStart={() => handleClick({
-                            properties: {stateId: 2, name: 'CABA'}
+                            properties: {state: 2, name: 'CABA'}
                         })}
                     />
                 </OverlayTrigger>
@@ -155,7 +155,7 @@ Argentina.propTypes = {
 Argentina.defaultProps = {
     availableStates: null,
     selectedState: {
-        stateId: null,
+        state: null,
         name: null
     }
 };

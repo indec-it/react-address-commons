@@ -13,6 +13,6 @@ export function* fetchSession() {
             yield put(receiveSession(profile));
         }
     } catch (err) {
-        yield put(receiveSession({}));
+        yield put(receiveSession(null));
     }
 }

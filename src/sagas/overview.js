@@ -1,26 +1,26 @@
 /* eslint-disable import/prefer-default-export,prefer-destructuring */
 import {call, put} from 'redux-saga/effects';
-import {filter, includes} from 'lodash';
+import {filter} from 'lodash';
 
 import MonitoringService from '../services/monitoring';
 import {handleError, clearError, receiveOverview} from '../actions';
 import SyncTaskService from '../services/log';
 import UserService from '../services/user';
-import {roles} from '../constants';
+import {isNationalCoordinator} from '../util';
 
 export function* fetchOverview({profile}) {
     try {
         yield put(clearError());
-        const isNationalCoordinator = includes(profile.roles, roles.NATIONAL_COORDINATOR);
+        const isNationalCoord = isNationalCoordinator(profile);
         const general = (yield call(MonitoringService.fetchGeneralMonitoring)).areas;
         let logs = (yield call(SyncTaskService.fetchAllSyncTask)).logs;
         let response;
         let users;
-        if (isNationalCoordinator) {
+        if (isNationalCoord) {
             response = yield call(MonitoringService.fetchResponseMonitoring);
             users = yield call(UserService.fetchAll);
         } else {
-            response = yield call(MonitoringService.fetchResponseMonitoring, {stateId: profile.state});
+            response = yield call(MonitoringService.fetchResponseMonitoring, {state: profile.state});
             logs = filter(logs, log => log.user.state === profile.state);
             users = (yield call(UserService.fetch, profile.state)).users;
         }
@@ -29,8 +29,8 @@ export function* fetchOverview({profile}) {
             response,
             logs,
             users,
-            general.map(area => area._id.stateId),
-            isNationalCoordinator
+            general.map(area => area._id.state),
+            isNationalCoord
         ));
     } catch (err) {
         yield put(handleError(err));

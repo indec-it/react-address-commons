@@ -3,7 +3,7 @@ import {
     SESSION_REQUESTED
 } from '../actions';
 
-export default function session(state = {loading: false, profile: {}}, action) {
+export default function session(state = {profile: null}, action) {
     switch (action.type) {
         case SESSION_REQUESTED:
             return {...state, loading: true, profile: null};

@@ -4,8 +4,8 @@ import {
 
 const DWELLINGS_WITHOUT_TYPE = 'Sin tipo';
 
-const parseResponse = (stateId, province, response) => {
-    const filteredProvince = filter(province, p => (stateId ? p._id.stateId === stateId : true));
+const parseResponse = (state, province, response) => {
+    const filteredProvince = filter(province, p => (state ? p._id.state === state : true));
 
     const unassigned = sumBy(filteredProvince, p => p.unassigned);
     const assigned = sumBy(filteredProvince, p => p.assigned);
@@ -16,7 +16,7 @@ const parseResponse = (stateId, province, response) => {
     const approved = sumBy(filteredProvince, p => p.approved);
     const done = sumBy(filteredProvince, p => p.done);
 
-    const filterResponse = filter(response, r => (stateId ? r._id.stateId === stateId : true));
+    const filterResponse = filter(response, r => (state ? r._id.state === state : true));
 
     const provinceData = {
         labels: [

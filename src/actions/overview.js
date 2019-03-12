@@ -17,9 +17,9 @@ export const cleanOverviewReducer = () => ({
 
 export const SET_MAP_STATE = 'SET_MAP_STATE';
 
-export const setMapState = stateId => ({
+export const setMapState = state => ({
     type: SET_MAP_STATE,
-    stateId
+    state
 });
 
 export const CLEAN_MAP_SELECTION = 'CLEAN_MAP_SELECTION';

@@ -52,11 +52,11 @@ if (Chart) {
 // ¡¡¡¡ IMPORTANT !!!!
 
 const MonitoringGraphics = ({
-    province, stateId, stateName, response, logs, users, roles
+    province, state, stateName, response, logs, users, roles
 }) => {
     const {
         provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypes
-    } = parseResponse(stateId, province, response);
+    } = parseResponse(state, province, response);
     return (
         <Fragment>
             <Row>
@@ -82,10 +82,10 @@ const MonitoringGraphics = ({
             </Row>
             <Row>
                 <Col sm={6}>
-                    <Users users={users} stateId={stateId} roles={roles}/>
+                    <Users users={users} state={state} roles={roles}/>
                 </Col>
                 <Col sm={6}>
-                    <Synchronization logs={logs} stateId={stateId}/>
+                    <Synchronization logs={logs} state={state}/>
                 </Col>
             </Row>
         </Fragment>
@@ -98,12 +98,12 @@ MonitoringGraphics.propTypes = {
     logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    stateId: PropTypes.number,
+    state: PropTypes.number,
     stateName: PropTypes.string
 };
 
 MonitoringGraphics.defaultProps = {
-    stateId: null,
+    state: null,
     stateName: null
 };
 
