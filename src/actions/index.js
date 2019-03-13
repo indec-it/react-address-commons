@@ -7,6 +7,7 @@ import {
 import {
     STATES_FETCH_REQUESTED, STATES_FETCH_SUCCEEDED, requestFetchStates, receiveStates
 } from './review';
+import {BLOCK_SPREADSHEETS_FETCH_REQUESTED, DWELLING_SPREADSHEETS_FETCH_REQUESTED} from './spreadsheet';
 import {
     USERS_FETCH_REQUESTED,
     USERS_FETCH_SUCCEEDED,
@@ -18,6 +19,8 @@ import {
     receiveUser
 } from './user';
 
+export {BLOCK_SPREADSHEETS_FETCH_REQUESTED};
+export {DWELLING_SPREADSHEETS_FETCH_REQUESTED};
 export {FETCH_SYNC_LOG_REQUESTED};
 export {FETCH_SYNC_LOG_SUCCEEDED};
 export {ERROR_OCCURRED};
