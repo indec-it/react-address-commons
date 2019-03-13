@@ -100,7 +100,7 @@ class DwellingSpreadsheets extends PureComponent {
                                             Casa o Lote
                                         </td>
                                         <td className="column-md table-header-bg data-align-bottom">
-                                            Tipo de variacion
+                                            Tipo de Vivienda
                                         </td>
                                         <td className="column-md table-header-bg data-align-bottom">
                                             Cod de variacion
