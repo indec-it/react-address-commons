@@ -15,7 +15,11 @@ export default function spreadsheets(state = {}, action) {
         case BLOCK_SPREADSHEETS_FETCH_SUCCEEDED:
             return {
                 ...state,
-                blocks: chunkBlocksDwellings({blocks: action.blocks, firstDwellingChunkSize: 5, dwellingChunkSize: 7}),
+                blocks: chunkBlocksDwellings({
+                    blocks: action.blocks,
+                    firstDwellingChunkSize: 10,
+                    dwellingChunkSize: 16
+                }),
                 radioData: getRadioData(action.blocks)
             };
         case DWELLING_SPREADSHEETS_FETCH_SUCCEEDED:
