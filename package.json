@@ -18,6 +18,9 @@
     "@indec/heimdall": "^0.2.8",
     "@indec/react-commons": "indec-it/react-commons",
     "babel-eslint": "^10.0.1",
+    "chart.js": "^2.7.3",
+    "chartjs-plugin-datalabels": "^0.5.0",
+    "d3-geo": "^1.11.3",
     "eslint": "^5.13.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
@@ -29,10 +32,12 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.2",
     "react-bootstrap": "^0.32.4",
+    "react-chartjs-2": "^2.7.4",
     "react-dropzone": "^8.1.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "redux-saga": "^1.0.1"
+    "redux-saga": "^1.0.1",
+    "topojson-client": "^3.0.0"
   },
   "peerDependencies": {
     "lodash": "^4.17.11",

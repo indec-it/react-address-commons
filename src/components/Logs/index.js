@@ -5,12 +5,12 @@ import {Row, Col, Grid} from 'react-bootstrap';
 import {faSync} from '@fortawesome/free-solid-svg-icons';
 import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
-import {Log} from '../../model';
-import {UserSearchParams} from '../common';
-import {requestFetchStates} from '../../actions/review';
-import {requestFetchSyncTask} from '../../actions/log';
-import {statePropTypes} from '../../util/propTypes';
 import LogsTable from './LogsTable';
+import {UserSearchParams} from '../common';
+import {Log} from '../../model';
+import {statePropTypes} from '../../util/propTypes';
+
+import {requestFetchStates, requestFetchSyncTask} from '../../actions';
 
 class Logs extends PureComponent {
     static propTypes = {

@@ -5,13 +5,16 @@ import {
     Col, Panel, PanelGroup, Row
 } from 'react-bootstrap';
 import {faFileCsv} from '@fortawesome/free-solid-svg-icons';
-import {IconButton, LoadingButton} from '@indec/react-commons';
+import {IconButton, LoadingButton, Role} from '@indec/react-commons';
 
 import {requestExportBlock} from '../../actions/blocks';
 import {requestFetchSides} from '../../actions/sides';
+import {roles} from '../../constants';
 import Sides from './Sides';
 
-const Blocks = ({blocks, loading, ...props}) => (
+const Blocks = ({
+    blocks, loading, sessionRoles, ...props
+}) => (
     <PanelGroup accordion>
         {blocks.map(block => (
             <Panel eventKey={block.blockId}>
@@ -23,12 +26,14 @@ const Blocks = ({blocks, loading, ...props}) => (
                             </Panel.Title>
                         </Col>
                         <Col sm={8} className="text-right">
-                            <IconButton
-                                icon={faFileCsv}
-                                onClick={() => props.requestExportBlock(block)}
-                            >
-                                Exportar
-                            </IconButton>
+                            <Role roles={[roles.NATIONAL_COORDINATOR]} sessionRoles={sessionRoles}>
+                                <IconButton
+                                    icon={faFileCsv}
+                                    onClick={() => props.requestExportBlock(block)}
+                                >
+                                    Exportar
+                                </IconButton>
+                            </Role>
                         </Col>
                     </Row>
                 </Panel.Heading>
@@ -51,6 +56,7 @@ Blocks.propTypes = {
             blockId: PropTypes.string
         })
     ),
+    sessionRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
     loading: PropTypes.bool
 };
 
@@ -61,7 +67,8 @@ Blocks.defaultProps = {
 
 export default connect(
     state => ({
-        loading: state.radio.loadingSides
+        loading: state.radio.loadingSides,
+        sessionRoles: state.session.profile.roles
     }),
     dispatch => ({
         requestFetchSides: blockId => dispatch(requestFetchSides(blockId)),
