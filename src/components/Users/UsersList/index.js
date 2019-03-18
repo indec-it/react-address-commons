@@ -3,19 +3,37 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Col, Grid, Row} from 'react-bootstrap';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
-import {concat, isEmpty} from 'lodash';
+import {concat, isEmpty, includes} from 'lodash';
 import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
 import {UserSearchParams} from '../../common';
-import {optionsForUsersSelect} from '../../../constants';
+import {optionsForUsersSelect, roles} from '../../../constants';
 import {User} from '../../../model';
 import {requestUsers} from '../../../actions';
 import {statePropTypes} from '../../../util/propTypes';
 import UsersTable from './UsersTable';
 
+const getRoles = sessionRoles => {
+    if (includes(sessionRoles, roles.COORDINATOR)) {
+        return [
+            {_id: 'sc', name: 'Subcoordinador Provincial'},
+            {_id: 'su', name: 'Supervisor'},
+            {_id: 'po', name: 'Actualizador'}
+        ];
+    }
+    if (includes(sessionRoles, roles.SUB_COORDINATOR)) {
+        return [
+            {_id: 'su', name: 'Supervisor'},
+            {_id: 'po', name: 'Actualizador'}
+        ];
+    }
+    return optionsForUsersSelect;
+};
+
 class UsersList extends Component {
     static propTypes = {
         requestUsers: PropTypes.func.isRequired,
+        sessionRoles: PropTypes.arrayOf(PropTypes.string),
         states: PropTypes.arrayOf(statePropTypes),
         users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
         loading: PropTypes.bool,
@@ -27,6 +45,7 @@ class UsersList extends Component {
     static defaultProps = {
         users: [],
         states: [],
+        sessionRoles: [],
         usersCount: 0,
         pageSize: 0,
         loading: false
@@ -66,7 +85,7 @@ class UsersList extends Component {
             rol, selectedPage, state, term
         } = this.state;
         const {
-            loading, pageSize, users, usersCount, states, userCredentialsRoute
+            loading, pageSize, users, usersCount, states, userCredentialsRoute, sessionRoles
         } = this.props;
         return (
             <Grid>
@@ -78,8 +97,8 @@ class UsersList extends Component {
                 </Row>
                 <UserSearchParams
                     {...{state, rol, term}}
-                    states={concat([{_id: null, name: '[Todas]'}], states)}
-                    roles={optionsForUsersSelect}
+                    states={states ? concat([{_id: null, name: '[Todas]'}], states) : states}
+                    roles={getRoles(sessionRoles)}
                     onChange={e => this.handleChange(e)}
                     onSubmit={() => this.handleSubmit()}
                 />
@@ -113,7 +132,8 @@ export default connect(
         loading: state.user.loading,
         usersCount: state.user.usersCount,
         pageSize: state.user.pageSize,
-        states: state.user.states
+        states: state.user.states,
+        sessionRoles: state.session.profile.roles
     }),
     dispatch => ({
         requestUsers: (state, rol, term, skip) => dispatch(requestUsers(state, rol, term, skip))

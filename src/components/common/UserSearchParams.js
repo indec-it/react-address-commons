@@ -1,33 +1,49 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'react-bootstrap';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {Dropdown, IconButton, TextField} from '@indec/react-commons';
+import {
+    Dropdown, IconButton, TextField, Role
+} from '@indec/react-commons';
 
 import {statePropTypes} from '../../util/propTypes';
+import {roles as rolesEnum} from '../../constants';
 
 const UserSearchParams = ({
-    states, roles, state, rol, term, onChange, onSubmit
+    states, roles, state, rol, term, onChange, onSubmit, sessionRoles
 }) => (
     <Row className="form-group">
-        <Col sm={4}>
-            <Dropdown
-                control="state"
-                label="Jurisdicción"
-                value={state}
-                options={states}
-                onChange={onChange}
-            />
-        </Col>
-        <Col sm={4}>
-            <Dropdown
-                control="rol"
-                label="Rol"
-                value={rol}
-                options={roles}
-                onChange={onChange}
-            />
-        </Col>
+        {states && (
+            <Col sm={4}>
+                <Dropdown
+                    control="state"
+                    label="Jurisdicción"
+                    value={state}
+                    options={states}
+                    onChange={onChange}
+                />
+            </Col>
+        )}
+        <Role
+            roles={[
+                rolesEnum.NATIONAL_COORDINATOR,
+                rolesEnum.NATIONAL_COORDINATOR_RO,
+                rolesEnum.COORDINATOR,
+                rolesEnum.SUB_COORDINATOR
+            ]}
+            sessionRoles={sessionRoles}
+        >
+            <Col sm={4}>
+                <Dropdown
+                    control="rol"
+                    label="Rol"
+                    value={rol}
+                    options={roles}
+                    onChange={onChange}
+                />
+            </Col>
+        </Role>
         <Col sm={3}>
             <TextField
                 control="term"
@@ -49,6 +65,7 @@ UserSearchParams.propTypes = {
     state: PropTypes.number,
     rol: PropTypes.string,
     term: PropTypes.string,
+    sessionRoles: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
 };
@@ -58,7 +75,10 @@ UserSearchParams.defaultProps = {
     roles: [],
     state: null,
     rol: null,
-    term: null
+    term: null,
+    sessionRoles: []
 };
 
-export default UserSearchParams;
+export default connect(state => ({
+    sessionRoles: state.session.profile.roles
+}))(UserSearchParams);
