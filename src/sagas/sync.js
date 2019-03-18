@@ -1,7 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 
-import {handleError} from '../actions';
-import {receiveSyncTask} from '../actions/log';
+import {handleError, receiveSyncTask} from '../actions';
 import SyncTaskService from '../services/log';
 
 // eslint-disable-next-line

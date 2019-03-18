@@ -1,4 +1,4 @@
-import {STATES_FETCH_REQUESTED, STATES_FETCH_SUCCEEDED} from '../actions/review';
+import {STATES_FETCH_REQUESTED, STATES_FETCH_SUCCEEDED} from '../actions';
 
 const defaultState = {
     loading: false

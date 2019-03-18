@@ -1,7 +1,7 @@
 import {
     FETCH_SYNC_LOG_REQUESTED,
     FETCH_SYNC_LOG_SUCCEEDED
-} from '../actions/log';
+} from '../actions';
 
 export default function (state = {logs: []}, action) {
     switch (action.type) {
