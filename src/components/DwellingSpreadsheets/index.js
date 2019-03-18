@@ -1,7 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {LoadingButton} from '@indec/react-commons';
+import {LoadingButton, PageHeader} from '@indec/react-commons';
 
 import {requestDwellingSpreadsheets} from '../../actions/spreadsheet';
 import {radioPropTypes} from '../../util/propTypes';
@@ -20,7 +20,8 @@ class DwellingSpreadsheets extends PureComponent {
             )
         })),
         radioData: radioPropTypes,
-        loading: PropTypes.bool
+        loading: PropTypes.bool,
+        path: PropTypes.string.isRequired
     };
 
     static defaultProps = {
@@ -34,9 +35,10 @@ class DwellingSpreadsheets extends PureComponent {
     }
 
     renderContent() {
-        const {blocks, radioData} = this.props;
+        const {blocks, path, radioData} = this.props;
         return (
             <Fragment>
+                <PageHeader path={path} title="Listado de Viviendas para actualizar en campo."/>
                 <table className="table-width">
                     <tbody>
                         <tr>

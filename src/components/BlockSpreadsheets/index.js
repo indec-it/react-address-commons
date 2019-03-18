@@ -1,7 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {LoadingButton} from '@indec/react-commons';
+import {LoadingButton, PageHeader} from '@indec/react-commons';
 import {DateUtilsService} from '@indec/react-commons/services';
 
 import {requestBlockSpreadsheets} from '../../actions/spreadsheet';
@@ -25,7 +25,8 @@ class BlockSpreadsheets extends PureComponent {
             data: PropTypes.arrayOf(PropTypes.shape({}))
         })),
         radioData: radioPropTypes,
-        loading: PropTypes.bool
+        loading: PropTypes.bool,
+        path: PropTypes.string.isRequired
     };
 
     static defaultProps = {
@@ -39,9 +40,10 @@ class BlockSpreadsheets extends PureComponent {
     }
 
     renderContent() {
-        const {blocks, radioData} = this.props;
+        const {blocks, path, radioData} = this.props;
         return (
             <Fragment>
+                <PageHeader path={path} title="Listado de Manzanas y Viviendas para actualizar en campo."/>
                 <table className="table-width">
                     <tbody>
                         <tr>
