@@ -1,7 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 
-import {handleError} from '../actions';
-import {receiveStates} from '../actions/review';
+import {handleError, receiveStates} from '../actions';
 import ReviewService from '../services/review';
 
 // eslint-disable-next-line

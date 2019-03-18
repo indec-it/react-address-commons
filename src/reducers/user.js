@@ -2,7 +2,7 @@ import {
     USERS_FETCH_SUCCEEDED,
     USERS_FETCH_REQUESTED,
     USER_FETCH_SUCCEEDED
-} from '../actions/user';
+} from '../actions';
 
 export default function user(state = {saving: false, loading: false}, action) {
     switch (action.type) {

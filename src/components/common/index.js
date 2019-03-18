@@ -1,4 +1,5 @@
+import chartsColours from './chartsColours';
 import UserSearchParams from './UserSearchParams';
 
-// eslint-disable-next-line
+export {chartsColours};
 export {UserSearchParams};

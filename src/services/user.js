@@ -7,6 +7,10 @@ import {User} from '../model';
 const API = `${ENDPOINT}api/users/`;
 
 export default class UserService {
+    static async fetchAll() {
+        return http.get(`${API}all`);
+    }
+
     static async fetch(state, rol, term, skip) {
         const searchParams = new URLSearchParams();
         if (state) {
@@ -35,5 +39,19 @@ export default class UserService {
     static async findById(id) {
         const user = await http.get(`${API}findById?id=${id}`);
         return new User(user);
+    }
+
+    static async search() {
+        const {users} = await http.get(`${API}find`);
+        return users;
+    }
+
+    static async profile() {
+        const user = await http.get(`${API}profile`);
+        return new User(user);
+    }
+
+    static fetchByState(state) {
+        return http.get(`${API}state/${state}/users`);
     }
 }

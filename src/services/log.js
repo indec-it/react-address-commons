@@ -5,6 +5,10 @@ import {isEmpty} from 'lodash';
 const API = `${ENDPOINT}api/sync/logs/`;
 
 class SyncTaskService {
+    static fetchAllSyncTask() {
+        return http.get(`${API}all`);
+    }
+
     static fetchSyncTask(state, rol, term, skip) {
         const searchParams = new URLSearchParams();
         if (state) {
