@@ -32,7 +32,7 @@ const DwellingsTable = ({dwellings, street}) => (
                         <tr key={dwelling._id}>
                             <td className="text-center">{dwelling.listNumber}</td>
                             <td>{street.name}</td>
-                            <td className="text-center">{dwelling.streetNumbr}</td>
+                            <td className="text-center">{dwelling.streetNumber}</td>
                             <td className="text-center">{dwelling.floor}</td>
                             <td className="text-center">{dwelling.department}</td>
                             <td className="text-center">{dwelling.building}</td>
