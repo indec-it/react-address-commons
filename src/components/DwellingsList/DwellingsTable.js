@@ -33,7 +33,7 @@ const DwellingsTable = ({dwellings, street}) => (
                             <td className="text-center">{dwelling.listNumber}</td>
                             <td>{street.name}</td>
                             <td className="text-center">{dwelling.streetNumber}</td>
-                            <td className="text-center">{dwelling.floor}</td>
+                            <td className="text-center">{dwelling.groudFloor ? 'PB' : dwelling.floor}</td>
                             <td className="text-center">{dwelling.department}</td>
                             <td className="text-center">{dwelling.building}</td>
                             <td className="text-center">{dwelling.lote}</td>
