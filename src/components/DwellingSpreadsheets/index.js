@@ -182,7 +182,8 @@ class DwellingSpreadsheets extends PureComponent {
 export default connect(
     state => ({
         radioData: state.spreadsheet.radioData,
-        blocks: state.spreadsheet.dwellings
+        blocks: state.spreadsheet.dwellings,
+        loading: state.spreadsheet.loading
     }),
     dispatch => ({
         requestDwellingSpreadsheets: params => dispatch(requestDwellingSpreadsheets(params))
