@@ -6,9 +6,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAddressCard, faWrench} from '@fortawesome/free-solid-svg-icons';
 import {IconLinkButton} from '@indec/react-commons';
-import {includes} from 'lodash';
 
-import {roles} from '../../../constants';
 import getRoleName from '../../../util/getRoleName';
 
 const UsersTable = ({users, userCredentialsRoute}) => (
@@ -41,15 +39,7 @@ const UsersTable = ({users, userCredentialsRoute}) => (
                             <td>{user.documentId}</td>
                             <td>{user.email}</td>
                             <td>{getRoleName(user)}</td>
-                            <td>
-                                {
-                                    includes([
-                                        roles.NATIONAL_COORDINATOR, roles.NATIONAL_COORDINATOR_RO
-                                    ], user.roles)
-                                        ? getRoleName(user)
-                                        : user.stateName
-                                }
-                            </td>
+                            <td>{user.stateName}</td>
                             <td className="text-center">
                                 <ButtonToolbar>
                                     <IconLinkButton
