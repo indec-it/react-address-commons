@@ -15,6 +15,7 @@ export default function spreadsheets(state = {}, action) {
         case BLOCK_SPREADSHEETS_FETCH_SUCCEEDED:
             return {
                 ...state,
+                loading: false,
                 blocks: chunkBlocksDwellings({
                     blocks: action.blocks,
                     firstDwellingChunkSize: 10,
@@ -25,8 +26,7 @@ export default function spreadsheets(state = {}, action) {
         case DWELLING_SPREADSHEETS_FETCH_SUCCEEDED:
             return {
                 ...state,
-                loading: true,
-                ...state,
+                loading: false,
                 dwellings: chunkBlocksDwellings({
                     blocks: action.dwellings,
                     firstDwellingChunkSize: 5,

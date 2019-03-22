@@ -131,7 +131,8 @@ class BlockSpreadsheets extends PureComponent {
 export default connect(
     state => ({
         radioData: state.spreadsheet.radioData,
-        blocks: state.spreadsheet.blocks
+        blocks: state.spreadsheet.blocks,
+        loading: state.spreadsheet.loading
     }),
     dispatch => ({
         requestBlockSpreadsheets: params => dispatch(requestBlockSpreadsheets(params))
