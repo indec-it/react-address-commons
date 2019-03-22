@@ -54,7 +54,7 @@ const UserSearchParams = ({
         </Col>
         <Col sm={1} className="text-center">
             <br/>
-            <IconButton onClick={onSubmit} icon={faSearch}/>
+            <IconButton onClick={onSubmit} icon={faSearch}>Buscar</IconButton>
         </Col>
     </Row>
 );
