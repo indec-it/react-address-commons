@@ -68,7 +68,7 @@ class BlockSpreadsheets extends PureComponent {
                 </table>
                 <br/>
                 {blocks.map(block => (
-                    <div key={block.blockNumber} className="page-break">
+                    <div key={block.blockNumber}>
                         <table className="table-width">
                             <tbody>
                                 <tr>
