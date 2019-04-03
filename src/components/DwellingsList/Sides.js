@@ -14,7 +14,7 @@ const Sides = ({sides, loading, ...props}) => (
             <Panel eventKey={side._id}>
                 <Panel.Heading>
                     <Panel.Title toggle>
-                        {`Lado N ${side.number}`}
+                        {`Lado ${side.number}`}
                     </Panel.Title>
                 </Panel.Heading>
                 <Panel.Collapse onEntered={() => props.requestFetchDwellings(side._id)}>
