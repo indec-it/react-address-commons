@@ -22,7 +22,7 @@ const Blocks = ({
                     <Row>
                         <Col sm={4}>
                             <Panel.Title toggle>
-                                {`Manzana N ${block.blockNumber}`}
+                                {`Manzana ${block.blockNumber}`}
                             </Panel.Title>
                         </Col>
                         <Col sm={8} className="text-right">
