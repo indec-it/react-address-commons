@@ -73,15 +73,6 @@ class Manuals extends PureComponent {
                         </Row>
                     </Col>
                 </Row>
-                <br/>
-                <Row>
-                    <Col sm={6}>
-                        <ButtonGroup vertical block>
-                            <Button className="btn-group-justified">Planilla de Manzanas</Button>
-                            <Button className="btn-group-justified">Planilla de Viviendas por lado</Button>
-                        </ButtonGroup>
-                    </Col>
-                </Row>
             </Fragment>
         );
     }
