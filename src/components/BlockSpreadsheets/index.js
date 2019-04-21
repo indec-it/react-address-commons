@@ -61,10 +61,12 @@ class BlockSpreadsheets extends PureComponent {
                 </table>
                 <br/>
                 <table className="table-width">
-                    <tr>
-                        <td className="column-md"><strong>Nombre y Apellido del Actualizador:</strong></td>
-                        <td className="column-md"><strong>Nombre y Apellido del Supervisor:</strong></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className="column-md"><strong>Nombre y Apellido del Actualizador:</strong></td>
+                            <td className="column-md"><strong>Nombre y Apellido del Supervisor:</strong></td>
+                        </tr>
+                    </tbody>
                 </table>
                 <br/>
                 {blocks.map(block => (
@@ -85,8 +87,8 @@ class BlockSpreadsheets extends PureComponent {
                             </tbody>
                         </table>
                         {block.dwellings.map(rows => (
-                            <Fragment key={Date.now()}>
-                                <table className="table-width page-break">
+                            <div key={Date.now()} className="page-break">
+                                <table className="table-width">
                                     <tbody>
                                         <tr>
                                             <td className="column-sm">Lado</td>
@@ -115,7 +117,7 @@ class BlockSpreadsheets extends PureComponent {
                                     </tbody>
                                 </table>
                                 <br/>
-                            </Fragment>
+                            </div>
                         ))}
                     </div>
                 ))}
