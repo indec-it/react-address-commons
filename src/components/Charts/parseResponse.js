@@ -1,8 +1,6 @@
 import {
-    sumBy, flatten, filter, find, get, sum, subtract, uniq
+    sumBy, filter, sum, subtract, reduce, forEach
 } from 'lodash';
-
-const DWELLINGS_WITHOUT_TYPE = 'Sin tipo';
 
 const parseResponse = (state, province, response) => {
     const filteredProvince = filter(province, p => (state ? p._id.state === state : true));
@@ -132,12 +130,30 @@ const parseResponse = (state, province, response) => {
         total: sumBy(filterResponse, p => p.dwellings)
     };
 
-    const typesName = uniq(flatten(
-        filterResponse.map(p => p.dwellingTypes.map(type => type.type || DWELLINGS_WITHOUT_TYPE))
-    ));
+    const dwellingTypesNames = [];
+    const dwellingTypesValues = [];
+    const responseDwellingTypes = filterResponse.map(p => p.dwellingTypes);
+
+    const dwellingTypes = reduce(
+        responseDwellingTypes,
+        (result, item) => {
+            const newResult = {...result};
+            forEach(item, (value, key) => {
+                if (newResult[key]) {
+                    newResult[key] += value;
+                } else {
+                    newResult[key] = value;
+                }
+            });
+            return newResult;
+        },
+        {}
+    );
+
+    forEach(dwellingTypes, (value, key) => dwellingTypesNames.push(key) && dwellingTypesValues.push(value));
 
     const dwellingsTypes = {
-        labels: typesName,
+        labels: dwellingTypesNames,
         datasets: [{
             backgroundColor: [
                 '#ffd9b3',
@@ -158,11 +174,7 @@ const parseResponse = (state, province, response) => {
             ],
             borderColor: 'rgba(255, 140, 26, 1)',
             borderWidth: 1,
-            data: typesName.map(type => sumBy(filterResponse, p => get(
-                find(p.dwellingTypes, dt => (DWELLINGS_WITHOUT_TYPE === type && !dt.type) || dt.type === type),
-                'value',
-                0
-            )))
+            data: dwellingTypesValues
         }]
     };
 

@@ -17,12 +17,12 @@ export function* fetchOverview({profile}) {
         let response;
         let users;
         if (isNationalCoord) {
-            response = yield call(MonitoringService.fetchResponseMonitoring);
             users = yield call(UserService.fetchAll);
+            response = yield call(MonitoringService.fetchResponseMonitoring);
         } else {
-            response = yield call(MonitoringService.fetchResponseMonitoring, {state: profile.state});
             logs = filter(logs, log => log.user.state === profile.state);
             users = (yield call(UserService.fetch, profile.state)).users;
+            response = yield call(MonitoringService.fetchResponseMonitoring, {state: profile.state});
         }
         yield put(receiveOverview(
             general,
