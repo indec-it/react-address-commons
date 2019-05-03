@@ -7,23 +7,23 @@ const SideData = ({side, street}) => (
     <Fragment>
         <Row>
             <Col sm={4}>
-                {`Cod. Calle: ${street.code}`}
+                {`Cod. Calle: ${street.code || ''}`}
             </Col>
             <Col sm={4}>
-                {`Calle: ${street.name}`}
-            </Col>
-        </Row>
-        <Row>
-            <Col sm={4}>
-                {`N Min: ${side.initialNumber}`}
-            </Col>
-            <Col sm={4}>
-                {`N Max: ${side.finalNumber}`}
+                {`Calle: ${street.name || ''}`}
             </Col>
         </Row>
         <Row>
             <Col sm={4}>
-                {`Cod. Postal: ${side.postalCode}`}
+                {`N Min: ${side.initialNumber || ''}`}
+            </Col>
+            <Col sm={4}>
+                {`N Max: ${side.finalNumber || ''}`}
+            </Col>
+        </Row>
+        <Row>
+            <Col sm={4}>
+                {`Cod. Postal: ${side.postalCode || ''}`}
             </Col>
         </Row>
     </Fragment>
