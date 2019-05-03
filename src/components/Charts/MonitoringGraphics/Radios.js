@@ -52,7 +52,7 @@ const Radios = ({provinceData, stateName}) => (
                 </li>
                 <li>
                     <span className="state-assigned"/>
-                    Asignados
+                    Asignadas
                 </li>
                 <li>
                     <span className="state-in-progress"/>
@@ -60,7 +60,7 @@ const Radios = ({provinceData, stateName}) => (
                 </li>
                 <li>
                     <span className="state-closed"/>
-                    Cerrados
+                    Cerradas
                 </li>
                 <li>
                     <span className="state-supervision"/>
@@ -68,15 +68,15 @@ const Radios = ({provinceData, stateName}) => (
                 </li>
                 <li>
                     <span className="state-supervised"/>
-                    Supervisados
+                    Supervisadas
                 </li>
                 <li>
                     <span className="state-approved"/>
-                    Aprobados
+                    Aprobadas
                 </li>
                 <li>
                     <span className="state-done"/>
-                    Finalizados
+                    Terminadas
                 </li>
             </ul>
         </Row>
