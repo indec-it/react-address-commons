@@ -105,7 +105,7 @@ const Users = ({users, state, roles}) => (
         <h4 className="users text-center">
             <FontAwesomeIcon icon={faAddressBook}/>
             &nbsp;
-            Personal Asignado al Operativo
+            Personal Designado al Operativo
         </h4>
         <Bar
             data={parseData(users, state, roles)}
