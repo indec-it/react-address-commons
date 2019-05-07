@@ -1,5 +1,5 @@
 import {
-    sumBy, filter, sum, subtract, reduce, forEach
+    filter, forEach, keys, map, reduce, subtract, sum, sumBy, values
 } from 'lodash';
 
 const parseResponse = (state, province, response) => {
@@ -126,30 +126,27 @@ const parseResponse = (state, province, response) => {
         total: sumBy(filterResponse, p => p.dwellings)
     };
 
-    const dwellingTypesNames = [];
-    const dwellingTypesValues = [];
-    const responseDwellingTypes = filterResponse.map(p => p.dwellingTypes);
-
     const dwellingTypes = reduce(
-        responseDwellingTypes,
-        (result, item) => {
+        map(filterResponse, p => p.dwellingTypes),
+        (result, type, index, types) => {
             const newResult = {...result};
-            forEach(item, (value, key) => {
+            forEach(type, (value, key) => {
                 if (newResult[key]) {
                     newResult[key] += value;
                 } else {
                     newResult[key] = value;
                 }
             });
+            if (types.length === index + 1) {
+                return {keys: keys(newResult), values: values(newResult)};
+            }
             return newResult;
         },
         {}
     );
 
-    forEach(dwellingTypes, (value, key) => dwellingTypesNames.push(key) && dwellingTypesValues.push(value));
-
     const dwellingsTypes = {
-        labels: dwellingTypesNames,
+        labels: dwellingTypes.keys,
         datasets: [{
             backgroundColor: [
                 '#ffd9b3',
@@ -170,7 +167,7 @@ const parseResponse = (state, province, response) => {
             ],
             borderColor: 'rgba(255, 140, 26, 1)',
             borderWidth: 1,
-            data: dwellingTypesValues
+            data: dwellingTypes.values
         }]
     };
 
