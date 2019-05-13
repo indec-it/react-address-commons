@@ -57,30 +57,26 @@ const parseResponse = (state, province, response) => {
     const trimmed = sumBy(filterResponse, p => p.trimmedBlocks);
     const deleted = sumBy(filterResponse, p => p.deletedBlocks);
     const totalBlocks = sumBy(filterResponse, p => p.blocks);
-    const unedited = subtract(totalBlocks, sum([edited, added, trimmed, deleted]));
 
     const blocksResponse = {
         labels: [
             'Actualizadas',
             'Nuevas',
             'Recorte',
-            'Baja',
-            'Sin editar'
+            'Baja'
         ],
         datasets: [{
             backgroundColor: [
                 '#000',
                 '#222983',
                 '#b07cc6',
-                '#dc0050',
-                '#dcd775'
+                '#dc0050'
             ],
             data: [
                 edited,
                 added,
                 trimmed,
-                deleted,
-                unedited
+                deleted
             ]
         }],
         total: totalBlocks
