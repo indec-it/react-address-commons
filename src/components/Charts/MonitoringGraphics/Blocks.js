@@ -60,10 +60,6 @@ const Blocks = ({blocksResponse}) => (
                     <span className="blocks-deleted"/>
                     Baja
                 </li>
-                <li>
-                    <span className="blocks-unedited"/>
-                    Sin editar
-                </li>
             </ul>
         </Row>
     </div>
