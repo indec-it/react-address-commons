@@ -1,0 +1,252 @@
+// indec colors
+$cyan: rgba(2, 141, 200, 1);
+$violet: #222983;
+$magenta: #dc0068;
+$gray: #58565a;
+
+// complementary colors
+$light-gray: rgba(225, 225, 225, 1);
+$black: #000;
+$white: #fff;
+
+// map colors
+$state-selected: rgba(27, 83, 120, 1);
+$state-without-data: $light-gray;
+$state-with-data: $cyan;
+
+// state colors
+$state: #8c8c8c;
+$state-open: #018bc9;
+$state-unassigned: #222983;
+$state-assigned: #dc0068;
+$state-in-progress: #000;
+$state-closed: #dc0030;
+$state-supervision: #b07cc6;
+$state-supervised: #59465a;
+$state-approved: #fc9;
+$state-done: #bfc9ca;
+
+// blocks colors
+$blocks: #006496;
+$blocks-edited: #000;
+$blocks-added: #222983;
+$blocks-trimmed: #b07cc6;
+$blocks-deleted: #dc0050;
+
+// sides colors
+$sides: #50315c;
+$sides-added: #502f5e;
+$sides-deleted: #b07cc6;
+$sides-without-dwellings: #dc0068;
+
+// dwellings colors
+$dwellings: #444d4a;
+$dwellings-added: #434947;
+$dwellings-deleted: #bfc9ca;
+
+// users colors
+$users: #4d2f29;
+
+// synchronization colors
+$synchronization: #4d4b37;
+
+.btn-clean {
+  width: auto !important;
+  height: auto !important;
+  white-space: normal;
+}
+
+.center-content {
+  display: inline-block;
+  float: none;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.col-map {
+  padding-right: 0 !important;
+  margin-top: 5px;
+}
+
+.col-no-padding-right {
+  padding-right: 0 !important;
+}
+
+.col-no-padding-left {
+  padding-left: 0 !important;
+}
+
+.col-middle-padding {
+  padding-right: 7.5px;
+  padding-left: 7.5px;
+}
+
+.box-doughnut {
+  width: auto;
+  padding: 5px;
+  margin: 5px;
+  background-color: $white;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  box-shadow: 1px 1px 2px 0 rgba(225, 225, 225, 1);
+
+  hr {
+    margin: 3px 10px;
+  }
+
+  h4 {
+    padding: 5px;
+    margin: -5px;
+    margin-bottom: 9px;
+    color: $white;
+    border-radius: 6px 6px 0 0;
+
+    &.state {
+      background-color: $state;
+    }
+
+    &.blocks {
+      background-color: $blocks;
+    }
+
+    &.sides {
+      background-color: $sides;
+    }
+
+    &.dwellings {
+      background-color: $dwellings;
+    }
+
+    &.users {
+      background-color: $users;
+    }
+
+    &.synchronization {
+      background-color: $synchronization;
+    }
+  }
+
+  h5 {
+    margin-left: 10px;
+
+    &.dwelling-no-response-text {
+      color: $blocks;
+    }
+
+    &.household-no-response-text {
+      color: $sides;
+    }
+
+    &.members-no-response-text {
+      color: $dwellings;
+    }
+  }
+}
+
+.legend {
+  padding-left: 0;
+  font-size: 12px;
+  list-style: none;
+
+  li {
+    float: left;
+    margin-right: 10px;
+  }
+
+  span {
+    float: left;
+    width: 11px;
+    height: 11px;
+    margin: 2px;
+    margin-right: 5px !important;
+
+    // map colors
+    &.state-selected {
+      background-color: $state-selected;
+    }
+
+    &.state-without-data {
+      background-color: $state-without-data;
+    }
+
+    &.state-with-data {
+      background-color: $state-with-data;
+    }
+
+    // state colors
+    &.state-open {
+      background-color: $state-open;
+    }
+
+    &.state-unassigned {
+      background-color: $state-unassigned;
+    }
+
+    &.state-assigned {
+      background-color: $state-assigned;
+    }
+
+    &.state-in-progress {
+      background-color: $state-in-progress;
+    }
+
+    &.state-closed {
+      background-color: $state-closed;
+    }
+
+    &.state-supervision {
+      background-color: $state-supervision;
+    }
+
+    &.state-supervised {
+      background-color: $state-supervised;
+    }
+
+    &.state-approved {
+      background-color: $state-approved;
+    }
+
+    &.state-done {
+      background-color: $state-done;
+    }
+
+    // blocks colors
+    &.blocks-edited {
+      background-color: $blocks-edited;
+    }
+
+    &.blocks-added {
+      background-color: $blocks-added;
+    }
+
+    &.blocks-trimmed {
+      background-color: $blocks-trimmed;
+    }
+
+    &.blocks-deleted {
+      background-color: $blocks-deleted;
+    }
+
+    // sides colors
+    &.sides-added {
+      background-color: $sides-added;
+    }
+
+    &.sides-deleted {
+      background-color: $sides-deleted;
+    }
+
+    &.sides-without-dwellings {
+      background-color: $sides-without-dwellings;
+    }
+
+    // dwellings colors
+    &.dwellings-added {
+      background-color: $dwellings-added;
+    }
+
+    &.dwellings-deleted {
+      background-color: $dwellings-deleted;
+    }
+  }
+}
