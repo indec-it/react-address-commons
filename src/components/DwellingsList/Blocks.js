@@ -17,7 +17,7 @@ const Blocks = ({
 }) => (
     <PanelGroup accordion>
         {blocks.map(block => (
-            <Panel eventKey={block.blockId}>
+            <Panel eventKey={block.blockId} className="border-blocks">
                 <Panel.Heading>
                     <Row>
                         <Col sm={4}>
