@@ -7,7 +7,7 @@ import {DateUtilsService} from '@indec/react-commons/services';
 const DwellingsTable = ({dwellings, street}) => (
     <Row>
         <Col sm={12}>
-            <Table responsive>
+            <Table responsive striped>
                 <thead>
                     <tr>
                         <th>N° Viv. Listado</th>
