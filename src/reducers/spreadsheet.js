@@ -29,8 +29,8 @@ export default function spreadsheets(state = {}, action) {
                 loading: false,
                 dwellings: chunkBlocksDwellings({
                     blocks: action.dwellings,
-                    firstDwellingChunkSize: 5,
-                    dwellingChunkSize: 7
+                    firstDwellingChunkSize: 4,
+                    dwellingChunkSize: 6
                 }),
                 radioData: getRadioData(action.dwellings)
             };
