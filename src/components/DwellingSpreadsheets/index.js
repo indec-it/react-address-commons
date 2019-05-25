@@ -49,7 +49,12 @@ class DwellingSpreadsheets extends PureComponent {
                         <BlockData block={block}/>
                         <br/>
                         {block.dwellings.map(rows => (
-                            <DwellingsTable dwellings={rows}/>
+                            <Fragment>
+                                <br/>
+                                <BlockData block={block}/>
+                                <br/>
+                                <DwellingsTable dwellings={rows}/>
+                            </Fragment>
                         ))}
                     </div>
                 ))}
