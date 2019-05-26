@@ -45,9 +45,6 @@ class DwellingSpreadsheets extends PureComponent {
                 <RadioData radioData={radioData}/>
                 {blocks.map(block => (
                     <div key={`${block.blockNumber}${block.sideNumber}`} className="page-break">
-                        <br/>
-                        <BlockData block={block}/>
-                        <br/>
                         {block.dwellings.map(rows => (
                             <Fragment>
                                 <br/>
