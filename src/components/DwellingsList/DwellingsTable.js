@@ -13,9 +13,11 @@ const DwellingsTable = ({dwellings, street}) => (
                         <th>N° Viv. Listado</th>
                         <th>Calle</th>
                         <th>N° Catastral</th>
+                        <th>Manz Int o Sector</th>
                         <th>Piso</th>
                         <th>Departamento</th>
                         <th>Edificio</th>
+                        <th>Entr o Esc</th>
                         <th>Casa/Lote</th>
                         <th>Viv</th>
                         <th>Descripcion</th>
@@ -33,9 +35,11 @@ const DwellingsTable = ({dwellings, street}) => (
                             <td className="text-center">{dwelling.listNumber}</td>
                             <td>{street.name}</td>
                             <td className="text-center">{dwelling.withoutNumber ? 'S/N' : dwelling.streetNumber}</td>
+                            <td className="text-center">{dwelling.sector}</td>
                             <td className="text-center">{dwelling.groundFloor ? 'PB' : dwelling.floor}</td>
                             <td className="text-center">{dwelling.department}</td>
                             <td className="text-center">{dwelling.building}</td>
+                            <td className="text-center">{dwelling.entrance}</td>
                             <td className="text-center">{dwelling.lote}</td>
                             <td className="text-center">
                                 {dwelling.dwellingSubtype ? dwelling.dwellingSubtype : dwelling.dwellingTypeCode}
