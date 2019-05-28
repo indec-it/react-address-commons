@@ -43,7 +43,11 @@ class BlockSpreadsheets extends PureComponent {
         const {blocks, path, radioData} = this.props;
         return (
             <Fragment>
-                <PageHeader path={path} title="Listado de Manzanas y Viviendas para actualizar en campo."/>
+                <PageHeader
+                    path={path}
+                    title="Listado de Manzanas y Viviendas para actualizar en campo."
+                    className="hidden-print"
+                />
                 <table className="table-width">
                     <tbody>
                         <tr>
