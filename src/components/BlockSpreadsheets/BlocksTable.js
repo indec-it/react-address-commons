@@ -14,14 +14,14 @@ const BlocksTable = ({blocks}) => (
                 <td className="column-md">viv.</td>
                 <td className="column-md column-lg">Observaciones:</td>
             </tr>
-            {blocks.map(datum => (
+            {blocks.map(block => (
                 <tr>
-                    <td className="column-sm">{datum.sideNumber}</td>
-                    <td className="column-sm">{datum.zipCode}</td>
-                    <td className="column-md column-lg">{datum.streetName}</td>
-                    <td className="column-sm">{datum.initialNumber}</td>
-                    <td className="column-sm">{datum.finalNumber}</td>
-                    <td className="column-sm">{datum.postalCode}</td>
+                    <td className="column-sm">{block.sideNumber}</td>
+                    <td className="column-sm">{block.zipCode}</td>
+                    <td className="column-md column-lg">{block.streetName}</td>
+                    <td className="column-sm">{block.initialNumber}</td>
+                    <td className="column-sm">{block.finalNumber}</td>
+                    <td className="column-sm">{block.postalCode}</td>
                     <td className="column-md"/>
                     <td className="column-md column-lg empty-block"/>
                 </tr>

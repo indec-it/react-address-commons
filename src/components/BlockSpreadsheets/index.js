@@ -5,10 +5,11 @@ import {LoadingButton, PageHeader} from '@indec/react-commons';
 
 import {requestBlockSpreadsheets} from '../../actions/spreadsheet';
 import {radioPropTypes} from '../../util/propTypes';
+import {randomString} from '../../util';
 import BlockHeader from './BlockHeader';
 import BlocksTable from './BlocksTable';
 import RadioData from './RadioData';
-import UserData from './UserData';
+import UserTable from './UserTable';
 
 class BlockSpreadsheets extends PureComponent {
     static propTypes = {
@@ -53,13 +54,13 @@ class BlockSpreadsheets extends PureComponent {
                 />
                 <RadioData radioData={radioData}/>
                 <br/>
-                <UserData/>
+                <UserTable/>
                 <br/>
                 {blocks.map(block => (
                     <div key={block.blockNumber}>
                         <BlockHeader blockNumber={block.blockNumber}/>
                         {block.dwellings.map(rows => (
-                            <div key={Date.now()} className="page-break">
+                            <div key={randomString()} className="page-break">
                                 <BlocksTable blocks={rows}/>
                                 <br/>
                             </div>

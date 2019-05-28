@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserData = () => (
+const UserTable = () => (
     <table className="table-width">
         <tbody>
             <tr>
@@ -11,4 +11,4 @@ const UserData = () => (
     </table>
 );
 
-export default UserData;
+export default UserTable;
