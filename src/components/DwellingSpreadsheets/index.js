@@ -5,7 +5,6 @@ import {LoadingButton, PageHeader} from '@indec/react-commons';
 
 import {requestDwellingSpreadsheets} from '../../actions/spreadsheet';
 import {radioPropTypes} from '../../util/propTypes';
-import {randomString} from '../../util';
 import BlockData from './BlockData';
 import DwellingsTable from './DwellingsTable';
 import RadioData from './RadioData';
@@ -47,7 +46,7 @@ class DwellingSpreadsheets extends PureComponent {
                 {blocks.map(block => (
                     <div key={`${block.blockNumber}${block.sideNumber}`} className="page-break">
                         {block.dwellings.map(rows => (
-                            <Fragment key={randomString()}>
+                            <Fragment>
                                 <br/>
                                 <BlockData block={block}/>
                                 <br/>
