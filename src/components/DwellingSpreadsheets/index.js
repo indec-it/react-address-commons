@@ -41,7 +41,11 @@ class DwellingSpreadsheets extends PureComponent {
         const {blocks, path, radioData} = this.props;
         return (
             <Fragment>
-                <PageHeader path={path} title="Listado de Viviendas para actualizar en campo."/>
+                <PageHeader
+                    path={path}
+                    title="Listado de Viviendas para actualizar en campo."
+                    className="hidden-print"
+                />
                 <RadioData radioData={radioData}/>
                 {blocks.map(block => (
                     <div key={`${block.blockNumber}${block.sideNumber}`} className="page-break">
