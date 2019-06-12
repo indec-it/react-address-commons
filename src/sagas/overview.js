@@ -1,22 +1,21 @@
 /* eslint-disable import/prefer-default-export,prefer-destructuring */
-import {call, put} from 'redux-saga/effects';
+import {call, put, select} from 'redux-saga/effects';
 import {filter} from 'lodash';
 
 import MonitoringService from '../services/monitoring';
 import {handleError, clearError, receiveOverview} from '../actions';
 import SyncTaskService from '../services/log';
 import UserService from '../services/user';
-import {isNationalCoordinator} from '../util';
 
 export function* fetchOverview({profile}) {
     try {
         yield put(clearError());
-        const isNationalCoord = isNationalCoordinator(profile);
+        const {isNationalCoordinator} = yield select(({session}) => session.profile);
         const general = (yield call(MonitoringService.fetchGeneralMonitoring)).areas;
         let logs = (yield call(SyncTaskService.fetchAllSyncTask)).logs;
         let response;
         let users;
-        if (isNationalCoord) {
+        if (isNationalCoordinator) {
             users = yield call(UserService.fetchAll);
             response = yield call(MonitoringService.fetchResponseMonitoring);
         } else {
@@ -30,7 +29,7 @@ export function* fetchOverview({profile}) {
             logs,
             users,
             general.map(area => area._id.state),
-            isNationalCoord
+            isNationalCoordinator
         ));
     } catch (err) {
         yield put(handleError(err));
