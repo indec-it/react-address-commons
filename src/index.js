@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Logs from './components/Logs';
 import SignIn from './components/SignIn';
 import Users from './components/Users/UsersList';
+import UserDetails from './components/Users/UserDetails';
 
 export {BlockSpreadsheets};
 export {DwellingsList};
@@ -15,3 +16,4 @@ export {Home};
 export {Logs};
 export {SignIn};
 export {Users};
+export {UserDetails};
