@@ -1,34 +1,27 @@
-/* eslint-disable import/prefer-default-export,prefer-destructuring */
+/* eslint-disable import/prefer-default-export */
 import {call, put, select} from 'redux-saga/effects';
 import {filter} from 'lodash';
 
 import MonitoringService from '../services/monitoring';
-import {handleError, clearError, receiveOverview} from '../actions';
+import {handleError, receiveOverview} from '../actions';
 import SyncTaskService from '../services/log';
-import UserService from '../services/user';
 
 export function* fetchOverview({profile}) {
     try {
-        yield put(clearError());
         const {isNationalCoordinator} = yield select(({session}) => session.profile);
-        const general = (yield call(MonitoringService.fetchGeneralMonitoring)).areas;
-        let logs = (yield call(SyncTaskService.fetchAllSyncTask)).logs;
-        let response;
-        let users;
-        if (isNationalCoordinator) {
-            users = yield call(UserService.fetchAll);
-            response = yield call(MonitoringService.fetchResponseMonitoring);
-        } else {
-            logs = filter(logs, log => log.user.state === profile.state);
-            users = (yield call(UserService.fetch, profile.state)).users;
-            response = yield call(MonitoringService.fetchResponseMonitoring, {state: profile.state});
-        }
+        const {areas} = yield call(MonitoringService.fetchGeneralMonitoring);
+        const {logs} = yield call(SyncTaskService.fetchAllSyncTask);
+        const {users} = yield call(MonitoringService.fetchUsers);
+        const {blocks} = yield call(MonitoringService.fetchBlocksData);
+        const {sides} = yield call(MonitoringService.fetchSidesData);
+        const {dwellings} = yield call(MonitoringService.fetchDwellingsData);
+        const response = {blocks, sides, dwellings};
         yield put(receiveOverview(
-            general,
+            areas,
             response,
-            logs,
+            isNationalCoordinator ? filter(logs, log => log.user.state === profile.state) : logs,
             users,
-            general.map(area => area._id.state),
+            areas.map(area => area._id.state),
             isNationalCoordinator
         ));
     } catch (err) {

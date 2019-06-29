@@ -1,5 +1,5 @@
 import {
-    sumBy, filter, sum, subtract, reduce, forEach
+    sumBy, filter, reduce, forEach
 } from 'lodash';
 
 const parseResponse = (state, province, response) => {
@@ -52,12 +52,6 @@ const parseResponse = (state, province, response) => {
         total: sumBy(filteredProvince, p => p.open)
     };
 
-    const edited = sumBy(filterResponse, p => p.editedBlocks);
-    const added = sumBy(filterResponse, p => p.addedBlocks);
-    const trimmed = sumBy(filterResponse, p => p.trimmedBlocks);
-    const deleted = sumBy(filterResponse, p => p.deletedBlocks);
-    const totalBlocks = sumBy(filterResponse, p => p.blocks);
-
     const blocksResponse = {
         labels: [
             'Actualizadas',
@@ -73,19 +67,14 @@ const parseResponse = (state, province, response) => {
                 '#dc0050'
             ],
             data: [
-                edited,
-                added,
-                trimmed,
-                deleted
+                response.blocks.edited,
+                response.blocks.added,
+                response.blocks.trimmed,
+                response.blocks.deleted
             ]
         }],
-        total: totalBlocks
+        total: response.blocks.total
     };
-
-    const addedSides = sumBy(filterResponse, p => p.addedSides);
-    const deletedSides = sumBy(filterResponse, p => p.deletedSides);
-    const totalSides = sumBy(filterResponse, p => p.sides);
-    const sidesWithoutDwellings = subtract(totalSides, sum([addedSides, deletedSides]));
 
     const sidesResponse = {
         labels: [
@@ -100,12 +89,12 @@ const parseResponse = (state, province, response) => {
                 '#dc0068'
             ],
             data: [
-                addedSides,
-                deletedSides,
-                sidesWithoutDwellings
+                response.sides.added,
+                response.sides.deleted,
+                response.sides.withoutDwellings
             ]
         }],
-        total: totalSides
+        total: response.sides.total
     };
 
     const dwellingsResponse = {
@@ -119,11 +108,11 @@ const parseResponse = (state, province, response) => {
                 '#bfc9ca'
             ],
             data: [
-                sumBy(filterResponse, p => p.addedDwellings),
-                sumBy(filterResponse, p => p.deletedDwellings)
+                response.dwellings.added,
+                response.dwellings.deleted
             ]
         }],
-        total: sumBy(filterResponse, p => p.dwellings)
+        total: response.dwellings.total
     };
 
     const dwellingTypesNames = [];

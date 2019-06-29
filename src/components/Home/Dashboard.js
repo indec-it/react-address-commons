@@ -1,16 +1,15 @@
-import React, {Component, Fragment} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Row, Col} from 'react-bootstrap';
 import {LoadingIndicator} from '@indec/react-commons';
 
 import {MonitoringGraphics, Map} from '../Charts';
-
 import {
     cleanOverviewReducer, fetchOverview, setMapState, cleanMapSelection
 } from '../../actions';
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
     static propTypes = {
         fetchOverview: PropTypes.func.isRequired,
         cleanOverviewReducer: PropTypes.func.isRequired,
@@ -66,9 +65,7 @@ class Dashboard extends Component {
                         province={general}
                         state={selectedState.state}
                         stateName={selectedState.name}
-                        response={response}
-                        logs={logs}
-                        users={users}
+                        {...{response, logs, users}}
                         roles={profile.roles}
                     />
                 </Col>

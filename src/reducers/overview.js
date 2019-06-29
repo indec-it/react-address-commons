@@ -25,7 +25,7 @@ export default function overview(state = {loading: false}, action) {
         case OVERVIEW_FETCH_SUCCEEDED:
             return {
                 ...state,
-                general: action.general,
+                general: action.areas,
                 response: action.response,
                 logs: action.logs,
                 users: action.users,
