@@ -75,7 +75,9 @@ const DwellingsTable = ({dwellings, street}) => (
 
 DwellingsTable.propTypes = {
     dwellings: PropTypes.arrayOf(PropTypes.shape({})),
-    street: PropTypes.shape({})
+    street: PropTypes.shape({
+        name: PropTypes.string
+    })
 };
 
 DwellingsTable.defaultProps = {

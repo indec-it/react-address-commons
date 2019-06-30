@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Bar} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSync} from '@fortawesome/free-solid-svg-icons';
@@ -63,8 +64,14 @@ const Synchronization = ({logs, state}) => (
 );
 
 Synchronization.propTypes = {
-    logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    logs: PropTypes.arrayOf(PropTypes.shape({})),
     state: PropTypes.number.isRequired
 };
 
-export default Synchronization;
+Synchronization.defaultProps = {
+    logs: []
+};
+
+export default connect(state => ({
+    logs: state.overview.logs
+}))(Synchronization);

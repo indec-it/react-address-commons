@@ -15,40 +15,39 @@ class Dashboard extends PureComponent {
         cleanOverviewReducer: PropTypes.func.isRequired,
         setMapState: PropTypes.func.isRequired,
         cleanMapSelection: PropTypes.func.isRequired,
-        selectedState: PropTypes.shape({}).isRequired,
+        selectedState: PropTypes.shape({
+            state: PropTypes.number,
+            name: PropTypes.string
+        }).isRequired,
         availableStates: PropTypes.arrayOf(PropTypes.shape({})),
         general: PropTypes.arrayOf(PropTypes.shape({})),
         response: PropTypes.arrayOf(PropTypes.shape({})),
-        logs: PropTypes.arrayOf(PropTypes.shape({})),
-        users: PropTypes.arrayOf(PropTypes.shape({})),
-        profile: PropTypes.shape({
-            state: PropTypes.number,
-            roles: PropTypes.arrayOf(PropTypes.string)
-        }),
         loading: PropTypes.bool
     };
 
     static defaultProps = {
         availableStates: null,
-        profile: null,
         general: null,
         response: null,
-        logs: null,
-        users: null,
         loading: false
     };
 
     componentDidMount() {
-        this.props.fetchOverview(this.props.profile);
+        this.props.fetchOverview();
     }
 
     componentWillUnmount() {
         this.props.cleanOverviewReducer();
     }
 
+    handleState(state) {
+        this.props.setMapState(state);
+        this.props.fetchOverview(state);
+    }
+
     renderContent() {
         const {
-            availableStates, general, response, logs, users, profile, selectedState
+            availableStates, general, response, selectedState
         } = this.props;
         return (
             <Fragment>
@@ -57,7 +56,7 @@ class Dashboard extends PureComponent {
                         availableStates={availableStates}
                         selectedState={selectedState}
                         onCleanSelection={() => this.props.cleanMapSelection()}
-                        onStateClick={state => this.props.setMapState(state.properties.state)}
+                        onStateClick={state => this.handleState(state.properties.state)}
                     />
                 </Col>
                 <Col sm={9} className="no-padding">
@@ -65,8 +64,7 @@ class Dashboard extends PureComponent {
                         province={general}
                         state={selectedState.state}
                         stateName={selectedState.name}
-                        {...{response, logs, users}}
-                        roles={profile.roles}
+                        response={response}
                     />
                 </Col>
             </Fragment>
@@ -87,19 +85,11 @@ export default connect(
     state => ({
         general: state.overview.general,
         response: state.overview.response,
-        logs: state.overview.logs,
-        users: state.overview.users,
         selectedState: state.overview.selectedState,
         availableStates: state.overview.availableStates,
         stateName: state.overview.stateName,
         loading: state.overview.loading,
-        isNationalCoordinator: state.overview.isNationalCoordinator,
-        profile: state.session.profile
+        isNationalCoordinator: state.overview.isNationalCoordinator
     }),
-    dispatch => ({
-        fetchOverview: profile => dispatch(fetchOverview(profile)),
-        cleanOverviewReducer: () => dispatch(cleanOverviewReducer()),
-        setMapState: state => dispatch(setMapState(state)),
-        cleanMapSelection: () => dispatch(cleanMapSelection())
-    })
+    {fetchOverview, cleanOverviewReducer, cleanMapSelection, setMapState}
 )(Dashboard);

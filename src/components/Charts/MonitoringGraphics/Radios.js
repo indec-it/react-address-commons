@@ -84,7 +84,9 @@ const Radios = ({provinceData, stateName}) => (
 );
 
 Radios.propTypes = {
-    provinceData: PropTypes.shape({}).isRequired,
+    provinceData: PropTypes.shape({
+        total: PropTypes.number
+    }).isRequired,
     stateName: PropTypes.string
 };
 

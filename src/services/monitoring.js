@@ -4,24 +4,44 @@ import {http} from '@indec/heimdall/client';
 const API = `${ENDPOINT}api/monitoring/`;
 
 class MonitoringService {
-    static fetchGeneralMonitoring() {
-        return http.get(`${API}general`);
+    static fetchGeneralMonitoring(state) {
+        const searchParams = new URLSearchParams();
+        if (state) {
+            searchParams.set('state', state);
+        }
+        return http.get(`${API}general?${searchParams.toString()}`);
     }
 
-    static fetchUsers() {
-        return http.get(`${API}users`);
+    static fetchUsers(state) {
+        const searchParams = new URLSearchParams();
+        if (state) {
+            searchParams.set('state', state);
+        }
+        return http.get(`${API}users?${searchParams.toString()}`);
     }
 
-    static fetchBlocksData() {
-        return http.get(`${API}blocksData`);
+    static fetchBlocksData(state) {
+        const searchParams = new URLSearchParams();
+        if (state) {
+            searchParams.set('state', state);
+        }
+        return http.get(`${API}blocksData?${searchParams.toString()}`);
     }
 
-    static fetchSidesData() {
-        return http.get(`${API}sidesData`);
+    static fetchSidesData(state) {
+        const searchParams = new URLSearchParams();
+        if (state) {
+            searchParams.set('state', state);
+        }
+        return http.get(`${API}sidesData?${searchParams.toString()}`);
     }
 
-    static fetchDwellingsData() {
-        return http.get(`${API}dwellingsData`);
+    static fetchDwellingsData(state) {
+        const searchParams = new URLSearchParams();
+        if (state) {
+            searchParams.set('state', state);
+        }
+        return http.get(`${API}dwellingsData?${searchParams.toString()}`);
     }
 
     static fetchDwellingsTypes() {

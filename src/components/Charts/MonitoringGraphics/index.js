@@ -52,7 +52,7 @@ if (Chart) {
 // ¡¡¡¡ IMPORTANT !!!!
 
 const MonitoringGraphics = ({
-    province, state, stateName, response, logs
+    province, state, stateName, response
 }) => {
     const {
         provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypes
@@ -85,7 +85,7 @@ const MonitoringGraphics = ({
                     <Users/>
                 </Col>
                 <Col sm={6}>
-                    <Synchronization logs={logs} state={state}/>
+                    <Synchronization state={state}/>
                 </Col>
             </Row>
         </Fragment>
@@ -95,7 +95,6 @@ const MonitoringGraphics = ({
 MonitoringGraphics.propTypes = {
     province: PropTypes.shape({}).isRequired,
     response: PropTypes.shape({}).isRequired,
-    logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     state: PropTypes.number,
     stateName: PropTypes.string
 };

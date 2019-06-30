@@ -21,7 +21,7 @@ const getState = (states, state, defaultState = null) => {
 export default function overview(state = {loading: false}, action) {
     switch (action.type) {
         case OVERVIEW_FETCH_REQUESTED:
-            return {...state, loading: true, profile: action.profile};
+            return {...state, loading: true};
         case OVERVIEW_FETCH_SUCCEEDED:
             return {
                 ...state,
@@ -33,13 +33,13 @@ export default function overview(state = {loading: false}, action) {
                 isNationalCoordinator: action.isNationalCoordinator,
                 selectedState: (
                     action.isNationalCoordinator
-                        ? generalState : getState(action.general, state.profile.state, generalState)
+                        ? generalState : getState(action.areas, state.profile.state, generalState)
                 ),
                 loading: false
             };
         case SET_MAP_STATE:
             if (state.isNationalCoordinator) {
-                return {...state, selectedState: getState(state.general, action.state, state.selectedState)};
+                return {...state, selectedState: getState(state.areas, action.state, state.selectedState)};
             }
             return {...state};
         case CLEAN_MAP_SELECTION:
