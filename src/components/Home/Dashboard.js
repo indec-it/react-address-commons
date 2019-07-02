@@ -91,5 +91,7 @@ export default connect(
         loading: state.overview.loading,
         isNationalCoordinator: state.overview.isNationalCoordinator
     }),
-    {fetchOverview, cleanOverviewReducer, cleanMapSelection, setMapState}
+    {
+        fetchOverview, cleanOverviewReducer, cleanMapSelection, setMapState
+    }
 )(Dashboard);

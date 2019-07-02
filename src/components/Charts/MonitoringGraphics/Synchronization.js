@@ -4,22 +4,19 @@ import {connect} from 'react-redux';
 import {Bar} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSync} from '@fortawesome/free-solid-svg-icons';
-import {filter, uniq} from 'lodash';
+import {filter, map} from 'lodash';
 import 'chartjs-plugin-datalabels';
 
 import {getTooltipLabel} from '../utils';
 
 const parseData = (logs, state) => {
     const filteredLogs = state ? filter(logs, log => log.user.state === state) : logs;
-    const userNames = uniq(filteredLogs.map(log => log.user.username));
     return {
-        labels: userNames,
+        labels: map(filteredLogs, log => log.user.username),
         datasets: [{
             borderColor: 'rgba(255, 140, 26, 1)',
             borderWidth: 1,
-            data: userNames.map(
-                user => filter(filteredLogs, log => log.user.username === user).length
-            )
+            data: map(filteredLogs, log => log.count)
         }]
     };
 };

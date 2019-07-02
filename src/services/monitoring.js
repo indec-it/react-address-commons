@@ -47,6 +47,10 @@ class MonitoringService {
     static fetchDwellingsTypes() {
         return http.get(`${API}dwellingsTypes`);
     }
+
+    static fetchSync() {
+        return http.get(`${API}logs`);
+    }
 }
 
 export default MonitoringService;
