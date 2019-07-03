@@ -1,6 +1,4 @@
-import {
-    sumBy, filter, reduce, forEach
-} from 'lodash';
+import {sumBy, filter, map} from 'lodash';
 
 const parseResponse = (state, province, response) => {
     const filteredProvince = filter(province, p => (state ? p._id.state === state : true));
@@ -13,8 +11,6 @@ const parseResponse = (state, province, response) => {
     const supervised = sumBy(filteredProvince, p => p.supervised);
     const approved = sumBy(filteredProvince, p => p.approved);
     const done = sumBy(filteredProvince, p => p.done);
-
-    const filterResponse = filter(response, r => (state ? r._id.state === state : true));
 
     const provinceData = {
         labels: [
@@ -115,30 +111,8 @@ const parseResponse = (state, province, response) => {
         total: response.dwellings.total
     };
 
-    const dwellingTypesNames = [];
-    const dwellingTypesValues = [];
-    const responseDwellingTypes = filterResponse.map(p => p.dwellingTypes);
-
-    const dwellingTypes = reduce(
-        responseDwellingTypes,
-        (result, item) => {
-            const newResult = {...result};
-            forEach(item, (value, key) => {
-                if (newResult[key]) {
-                    newResult[key] += value;
-                } else {
-                    newResult[key] = value;
-                }
-            });
-            return newResult;
-        },
-        {}
-    );
-
-    forEach(dwellingTypes, (value, key) => dwellingTypesNames.push(key) && dwellingTypesValues.push(value));
-
     const dwellingsTypes = {
-        labels: dwellingTypesNames,
+        labels: map(response.dwellingsTypes, dwellingType => dwellingType._id),
         datasets: [{
             backgroundColor: [
                 '#ffd9b3',
@@ -159,7 +133,7 @@ const parseResponse = (state, province, response) => {
             ],
             borderColor: 'rgba(255, 140, 26, 1)',
             borderWidth: 1,
-            data: dwellingTypesValues
+            data: map(response.dwellingsTypes, dwellingType => dwellingType.count)
         }]
     };
 
