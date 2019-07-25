@@ -1,29 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Bar} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSync} from '@fortawesome/free-solid-svg-icons';
-import {filter, uniq} from 'lodash';
+import {map} from 'lodash';
 import 'chartjs-plugin-datalabels';
 
 import {getTooltipLabel} from '../utils';
 
-const parseData = (logs, state) => {
-    const filteredLogs = state ? filter(logs, log => log.user.state === state) : logs;
-    const userNames = uniq(filteredLogs.map(log => log.user.username));
+const parseData = logs => {
+    const userNames = logs.map(log => log.user.username);
     return {
         labels: userNames,
         datasets: [{
             borderColor: 'rgba(255, 140, 26, 1)',
             borderWidth: 1,
-            data: userNames.map(
-                user => filter(filteredLogs, log => log.user.username === user).length
-            )
+            data: map(logs, log => log.count)
         }]
     };
 };
 
-const Synchronization = ({logs, state}) => (
+const Synchronization = ({logs}) => (
     <div className="box-doughnut">
         <h4 className="synchronization text-center">
             <FontAwesomeIcon icon={faSync}/>
@@ -31,7 +29,7 @@ const Synchronization = ({logs, state}) => (
             Sincronizaciones
         </h4>
         <Bar
-            data={parseData(logs, state)}
+            data={parseData(logs)}
             height="100%"
             options={{
                 tooltips: {
@@ -63,8 +61,9 @@ const Synchronization = ({logs, state}) => (
 );
 
 Synchronization.propTypes = {
-    logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    state: PropTypes.number.isRequired
+    logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
-export default Synchronization;
+export default connect(state => ({
+    logs: state.overview.logs
+}))(Synchronization);
