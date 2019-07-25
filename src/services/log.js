@@ -25,6 +25,10 @@ class SyncTaskService {
         }
         return http.get(`${API}?${searchParams.toString()}`);
     }
+
+    static fetchSyncTaskByState(state) {
+        return http.get(`${API}${state}`);
+    }
 }
 
 export default SyncTaskService;
