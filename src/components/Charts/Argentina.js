@@ -148,7 +148,9 @@ const Argentina = ({
 
 Argentina.propTypes = {
     availableStates: PropTypes.arrayOf(PropTypes.number),
-    selectedState: PropTypes.shape({}),
+    selectedState: PropTypes.shape({
+        state: PropTypes.number
+    }),
     handleClick: PropTypes.func.isRequired
 };
 

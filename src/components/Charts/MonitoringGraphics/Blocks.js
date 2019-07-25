@@ -66,7 +66,9 @@ const Blocks = ({blocksResponse}) => (
 );
 
 Blocks.propTypes = {
-    blocksResponse: PropTypes.shape({}).isRequired
+    blocksResponse: PropTypes.shape({
+        total: PropTypes.number
+    }).isRequired
 };
 
 export default Blocks;
