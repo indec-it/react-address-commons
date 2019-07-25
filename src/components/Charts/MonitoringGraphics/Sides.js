@@ -62,7 +62,9 @@ const Sides = ({sidesResponse}) => (
 );
 
 Sides.propTypes = {
-    sidesResponse: PropTypes.shape({}).isRequired
+    sidesResponse: PropTypes.shape({
+        total: PropTypes.number
+    }).isRequired
 };
 
 export default Sides;

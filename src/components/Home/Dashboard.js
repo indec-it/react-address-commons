@@ -17,7 +17,10 @@ class Dashboard extends PureComponent {
         setMapState: PropTypes.func.isRequired,
         cleanMapSelection: PropTypes.func.isRequired,
         requestFetchLogsByState: PropTypes.func.isRequired,
-        selectedState: PropTypes.shape({}).isRequired,
+        selectedState: PropTypes.shape({
+            state: PropTypes.number,
+            name: PropTypes.string
+        }).isRequired,
         availableStates: PropTypes.arrayOf(PropTypes.shape({})),
         general: PropTypes.arrayOf(PropTypes.shape({})),
         response: PropTypes.arrayOf(PropTypes.shape({})),

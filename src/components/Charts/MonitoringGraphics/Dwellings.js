@@ -58,7 +58,9 @@ const Dwellings = ({dwellingsResponse}) => (
 );
 
 Dwellings.propTypes = {
-    dwellingsResponse: PropTypes.shape({}).isRequired
+    dwellingsResponse: PropTypes.shape({
+        total: PropTypes.number
+    }).isRequired
 };
 
 export default Dwellings;
