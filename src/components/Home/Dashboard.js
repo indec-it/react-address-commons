@@ -1,26 +1,26 @@
-import React, {Component, Fragment} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Row, Col} from 'react-bootstrap';
 import {LoadingIndicator} from '@indec/react-commons';
 
 import {MonitoringGraphics, Map} from '../Charts';
-
 import {
     cleanOverviewReducer, fetchOverview, setMapState, cleanMapSelection
 } from '../../actions';
+import {requestFetchLogsByState} from '../../actions/overview';
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
     static propTypes = {
         fetchOverview: PropTypes.func.isRequired,
         cleanOverviewReducer: PropTypes.func.isRequired,
         setMapState: PropTypes.func.isRequired,
         cleanMapSelection: PropTypes.func.isRequired,
+        requestFetchLogsByState: PropTypes.func.isRequired,
         selectedState: PropTypes.shape({}).isRequired,
         availableStates: PropTypes.arrayOf(PropTypes.shape({})),
         general: PropTypes.arrayOf(PropTypes.shape({})),
         response: PropTypes.arrayOf(PropTypes.shape({})),
-        logs: PropTypes.arrayOf(PropTypes.shape({})),
         users: PropTypes.arrayOf(PropTypes.shape({})),
         profile: PropTypes.shape({
             state: PropTypes.number,
@@ -34,7 +34,6 @@ class Dashboard extends Component {
         profile: null,
         general: null,
         response: null,
-        logs: null,
         users: null,
         loading: false
     };
@@ -47,9 +46,14 @@ class Dashboard extends Component {
         this.props.cleanOverviewReducer();
     }
 
+    handleChangeState(state) {
+        this.props.setMapState(state);
+        this.props.requestFetchLogsByState(state);
+    }
+
     renderContent() {
         const {
-            availableStates, general, response, logs, users, profile, selectedState
+            availableStates, general, response, users, profile, selectedState
         } = this.props;
         return (
             <Fragment>
@@ -58,7 +62,7 @@ class Dashboard extends Component {
                         availableStates={availableStates}
                         selectedState={selectedState}
                         onCleanSelection={() => this.props.cleanMapSelection()}
-                        onStateClick={state => this.props.setMapState(state.properties.state)}
+                        onStateClick={state => this.handleChangeState(state.properties.state)}
                     />
                 </Col>
                 <Col sm={9} className="no-padding">
@@ -66,9 +70,7 @@ class Dashboard extends Component {
                         province={general}
                         state={selectedState.state}
                         stateName={selectedState.name}
-                        response={response}
-                        logs={logs}
-                        users={users}
+                        {...{response, users}}
                         roles={profile.roles}
                     />
                 </Col>
@@ -90,7 +92,6 @@ export default connect(
     state => ({
         general: state.overview.general,
         response: state.overview.response,
-        logs: state.overview.logs,
         users: state.overview.users,
         selectedState: state.overview.selectedState,
         availableStates: state.overview.availableStates,
@@ -99,10 +100,7 @@ export default connect(
         isNationalCoordinator: state.overview.isNationalCoordinator,
         profile: state.session.profile
     }),
-    dispatch => ({
-        fetchOverview: profile => dispatch(fetchOverview(profile)),
-        cleanOverviewReducer: () => dispatch(cleanOverviewReducer()),
-        setMapState: state => dispatch(setMapState(state)),
-        cleanMapSelection: () => dispatch(cleanMapSelection())
-    })
+    {
+        fetchOverview, cleanOverviewReducer, setMapState, cleanMapSelection, requestFetchLogsByState
+    }
 )(Dashboard);
