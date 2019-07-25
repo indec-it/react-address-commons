@@ -7,6 +7,7 @@ import {
     SET_MAP_STATE,
     CLEAN_MAP_SELECTION
 } from '../actions';
+import {LOGS_BY_STATE_FETCH_REQUESTED, LOGS_BY_STATE_FETCH_SUCCEEDED} from '../actions/overview';
 
 const generalState = {state: null, name: 'Argentina'};
 
@@ -25,7 +26,7 @@ export default function overview(state = {loading: false}, action) {
         case OVERVIEW_FETCH_SUCCEEDED:
             return {
                 ...state,
-                general: action.general,
+                general: action.areas,
                 response: action.response,
                 logs: action.logs,
                 users: action.users,
@@ -57,6 +58,10 @@ export default function overview(state = {loading: false}, action) {
                 availableStates: null,
                 selectedState: generalState
             };
+        case LOGS_BY_STATE_FETCH_REQUESTED:
+            return {...state, logs: []};
+        case LOGS_BY_STATE_FETCH_SUCCEEDED:
+            return {...state, logs: action.logs};
         default:
             return state;
     }
