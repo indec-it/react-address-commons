@@ -52,7 +52,7 @@ if (Chart) {
 // ¡¡¡¡ IMPORTANT !!!!
 
 const MonitoringGraphics = ({
-    province, state, stateName, response, logs, users, roles
+    province, state, stateName, response, users, roles
 }) => {
     const {
         provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypes
@@ -82,10 +82,10 @@ const MonitoringGraphics = ({
             </Row>
             <Row>
                 <Col sm={6}>
-                    <Users users={users} state={state} roles={roles}/>
+                    <Users {...{users, state, roles}}/>
                 </Col>
                 <Col sm={6}>
-                    <Synchronization logs={logs} state={state}/>
+                    <Synchronization/>
                 </Col>
             </Row>
         </Fragment>
@@ -95,7 +95,6 @@ const MonitoringGraphics = ({
 MonitoringGraphics.propTypes = {
     province: PropTypes.shape({}).isRequired,
     response: PropTypes.shape({}).isRequired,
-    logs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     roles: PropTypes.arrayOf(PropTypes.string).isRequired,
     state: PropTypes.number,
