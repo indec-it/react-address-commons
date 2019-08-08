@@ -1,6 +1,7 @@
 /* global ENDPOINT */
 import {http} from '@indec/heimdall/client';
-import {identity, keys, pickBy} from 'lodash';
+
+import {buildQueryString} from '../util';
 
 const API = `${ENDPOINT}api/monitoring/`;
 
@@ -9,13 +10,20 @@ class MonitoringService {
         return http.get(`${API}general`);
     }
 
-    static fetchResponseMonitoring(filters) {
-        const query = keys(
-            pickBy(filters, identity)
-        ).map(
-            key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`
-        ).join('&');
-        return http.get(`${API}response?${query}`);
+    static fetchDwellings(filters) {
+        return http.get(`${API}dwellings${buildQueryString(filters)}`);
+    }
+
+    static fetchBlocks(filters) {
+        return http.get(`${API}blocks${buildQueryString(filters)}`);
+    }
+
+    static fetchSides(filters) {
+        return http.get(`${API}sides${buildQueryString(filters)}`);
+    }
+
+    static fetchDwellingsTypes(filters) {
+        return http.get(`${API}dwellingTypes${buildQueryString(filters)}`);
     }
 }
 
