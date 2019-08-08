@@ -1,12 +1,12 @@
 /* eslint-disable prefer-destructuring */
 import {call, put, select} from 'redux-saga/effects';
-import {find, map, isEqual} from 'lodash';
 
 import {handleError, receiveOverview} from '../actions';
 import {receiveLogsByState} from '../actions/overview';
 import MonitoringService from '../services/monitoring';
 import SyncTaskService from '../services/log';
 import UserService from '../services/user';
+import {getMonitoring} from '../util';
 
 export function* fetchOverview({profile}) {
     try {
@@ -33,14 +33,7 @@ export function* fetchOverview({profile}) {
             sides = yield call(MonitoringService.fetchSides, {state: profile.state});
             dwellingsTypes = yield call(MonitoringService.fetchDwellingsTypes, {state: profile.state});
         }
-        const response = map(
-            dwellings, dwelling => ({
-                ...dwelling,
-                ...find(blocks, block => isEqual(block._id, dwelling._id)) || {},
-                ...find(sides, side => isEqual(side._id, dwelling._id)) || {},
-                ...find(dwellingsTypes, type => isEqual(type._id, dwelling._id)) || {}
-            })
-        );
+        const response = getMonitoring(dwellings, blocks, sides, dwellingsTypes);
         yield put(receiveOverview(
             areas,
             response,
