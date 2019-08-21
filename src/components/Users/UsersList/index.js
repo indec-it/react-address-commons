@@ -1,9 +1,11 @@
-import React, {Component, Fragment} from 'react';
+import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Col, Grid, Row} from 'react-bootstrap';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
-import {concat, isEmpty, includes} from 'lodash';
+import {
+    concat, isEmpty, includes, some
+} from 'lodash';
 import {LoadingIndicator, PageHeader, Pages} from '@indec/react-commons';
 
 import {UserSearchParams} from '../../common';
@@ -14,7 +16,7 @@ import {statePropTypes} from '../../../util/propTypes';
 import UsersTable from './UsersTable';
 
 const getRoles = sessionRoles => {
-    if (includes(sessionRoles, roles.COORDINATOR)) {
+    if (some(sessionRoles, rol => includes([roles.COORDINATOR, roles.READ_ONLY_COORDINATOR], rol))) {
         return [
             {_id: 'sc', name: 'Subcoordinador Provincial'},
             {_id: 'su', name: 'Supervisor'},
@@ -30,7 +32,7 @@ const getRoles = sessionRoles => {
     return optionsForUsersSelect;
 };
 
-class UsersList extends Component {
+class UsersList extends PureComponent {
     static propTypes = {
         requestUsers: PropTypes.func.isRequired,
         sessionRoles: PropTypes.arrayOf(PropTypes.string),
