@@ -30,7 +30,8 @@ const UserSearchParams = ({
                 rolesEnum.NATIONAL_COORDINATOR,
                 rolesEnum.NATIONAL_COORDINATOR_RO,
                 rolesEnum.COORDINATOR,
-                rolesEnum.SUB_COORDINATOR
+                rolesEnum.SUB_COORDINATOR,
+                rolesEnum.READ_ONLY_COORDINATOR
             ]}
             sessionRoles={sessionRoles}
         >
