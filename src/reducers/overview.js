@@ -7,7 +7,22 @@ import {
     SET_MAP_STATE,
     CLEAN_MAP_SELECTION
 } from '../actions';
-import {LOGS_BY_STATE_FETCH_REQUESTED, LOGS_BY_STATE_FETCH_SUCCEEDED} from '../actions/overview';
+import {
+    BLOCKS_FOR_DASHBOARD_FETCH_SUCCEEDED,
+    BLOCKS_FOR_DASHBOARD_FETCH_REQUESTED,
+    DWELLINGS_FOR_DASHBOARD_FETCH_REQUESTED,
+    DWELLINGS_FOR_DASHBOARD_FETCH_SUCCEEDED,
+    DWELLINGS_TYPES_FOR_DASHBOARD_FETCH_REQUESTED,
+    DWELLINGS_TYPES_FOR_DASHBOARD_FETCH_SUCCEEDED,
+    LOGS_BY_STATE_FETCH_REQUESTED,
+    LOGS_BY_STATE_FETCH_SUCCEEDED,
+    LOGS_FOR_OVERVIEW_FETCH_REQUESTED,
+    LOGS_FOR_OVERVIEW_FETCH_SUCCEEDED,
+    SIDES_FOR_DASHBOARD_FETCH_REQUESTED,
+    SIDES_FOR_DASHBOARD_FETCH_SUCCEEDED,
+    USERS_FOR_OVERVIEW_FETCH_REQUESTED,
+    USERS_FOR_OVERVIEW_FETCH_SUCCEEDED
+} from '../actions/overview';
 
 const generalState = {state: null, name: 'Argentina'};
 
@@ -27,9 +42,6 @@ export default function overview(state = {loading: false}, action) {
             return {
                 ...state,
                 general: action.areas,
-                response: action.response,
-                logs: action.logs,
-                users: action.users,
                 availableStates: action.availableStates,
                 isNationalCoordinator: action.isNationalCoordinator,
                 selectedState: (
@@ -53,8 +65,8 @@ export default function overview(state = {loading: false}, action) {
                 ...state,
                 general: null,
                 response: null,
-                logs: null,
-                users: null,
+                logs: [],
+                users: [],
                 availableStates: null,
                 selectedState: generalState
             };
@@ -62,6 +74,30 @@ export default function overview(state = {loading: false}, action) {
             return {...state, logs: []};
         case LOGS_BY_STATE_FETCH_SUCCEEDED:
             return {...state, logs: action.logs};
+        case BLOCKS_FOR_DASHBOARD_FETCH_REQUESTED:
+            return {...state, loadingBlocks: true};
+        case BLOCKS_FOR_DASHBOARD_FETCH_SUCCEEDED:
+            return {...state, loadingBlocks: false, blocks: action.blocks};
+        case SIDES_FOR_DASHBOARD_FETCH_REQUESTED:
+            return {...state, loadingSides: true};
+        case SIDES_FOR_DASHBOARD_FETCH_SUCCEEDED:
+            return {...state, loadingSides: false, sides: action.sides};
+        case DWELLINGS_FOR_DASHBOARD_FETCH_REQUESTED:
+            return {...state, loadingDwellings: true};
+        case DWELLINGS_FOR_DASHBOARD_FETCH_SUCCEEDED:
+            return {...state, loadingDwellings: false, dwellings: action.dwellings};
+        case DWELLINGS_TYPES_FOR_DASHBOARD_FETCH_REQUESTED:
+            return {...state, loadingDwellingsTypes: true};
+        case DWELLINGS_TYPES_FOR_DASHBOARD_FETCH_SUCCEEDED:
+            return {...state, loadingDwellingsTypes: false, dwellingsTypes: action.dwellingsTypes};
+        case LOGS_FOR_OVERVIEW_FETCH_REQUESTED:
+            return {...state, loadingLogs: true};
+        case LOGS_FOR_OVERVIEW_FETCH_SUCCEEDED:
+            return {...state, loadingLogs: false, logs: action.logs};
+        case USERS_FOR_OVERVIEW_FETCH_REQUESTED:
+            return {...state, loadingUsers: true};
+        case USERS_FOR_OVERVIEW_FETCH_SUCCEEDED:
+            return {...state, loadingUsers: false, users: action.users};
         default:
             return state;
     }
