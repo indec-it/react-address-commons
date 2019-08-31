@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Bar} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faAddressBook} from '@fortawesome/free-solid-svg-icons';
+import {faAddressBook, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {
     filter, includes, reject, sumBy, toNumber
 } from 'lodash';
@@ -100,49 +101,72 @@ const parseData = (users, state, roles) => {
     };
 };
 
-const Users = ({users, state, roles}) => (
+const Users = ({
+    users, selectedState, profile, loadingUsers
+}) => (
     <div className="box-doughnut">
         <h4 className="users text-center">
             <FontAwesomeIcon icon={faAddressBook}/>
             &nbsp;
             Personal Designado al Operativo
         </h4>
-        <Bar
-            data={parseData(users, state, roles)}
-            height="100%"
-            options={{
-                tooltips: {
-                    callbacks: {
-                        title: () => '',
-                        label: getTooltipLabel
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                plugins: {
-                    datalabels: {
-                        display: true,
-                        color: '#000',
-                        fontSize: 11,
-                        anchor: 'end',
-                        align: 'end',
-                        offset: -7
-                    }
-                },
-                backgroundColor: 'rgba(251, 85, 85, 0.4)',
-                showTooltips: false,
-                maintainAspectRatio: true,
-                responsive: true
-            }}
-        />
+        {loadingUsers ? <FontAwesomeIcon icon={faSpinner} pulse size="3x"/> : (
+            <Bar
+                data={parseData(users, selectedState.state, profile.roles)}
+                height="100%"
+                options={{
+                    tooltips: {
+                        callbacks: {
+                            title: () => '',
+                            label: getTooltipLabel
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: true,
+                            color: '#000',
+                            fontSize: 11,
+                            anchor: 'end',
+                            align: 'end',
+                            offset: -7
+                        }
+                    },
+                    backgroundColor: 'rgba(251, 85, 85, 0.4)',
+                    showTooltips: false,
+                    maintainAspectRatio: true,
+                    responsive: true
+                }}
+            />
+        )}
     </div>
 );
 
 Users.propTypes = {
-    users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    state: PropTypes.number.isRequired
+    users: PropTypes.arrayOf(PropTypes.shape({})),
+    state: PropTypes.number,
+    profile: PropTypes.shape({
+        roles: PropTypes.arrayOf(PropTypes.string)
+    }).isRequired,
+    selectedState: PropTypes.shape({
+        state: PropTypes.number,
+        name: PropTypes.string
+    }),
+    loadingUsers: PropTypes.bool
 };
 
-export default Users;
+Users.defaultProps = {
+    selectedState: {},
+    users: [],
+    state: null,
+    loadingUsers: true
+};
+
+export default connect(state => ({
+    users: state.overview.users,
+    profile: state.session.profile,
+    selectedState: state.overview.selectedState,
+    loadingUsers: state.overview.loadingUsers
+}))(Users);
