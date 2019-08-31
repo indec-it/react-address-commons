@@ -1,47 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Doughnut} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faVectorSquare} from '@fortawesome/free-solid-svg-icons';
+import {faVectorSquare, faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 import {getTooltipLabel} from '../utils';
 
-const Sides = ({sidesResponse}) => (
+const Sides = ({sidesResponse, loadingSides}) => (
     <div className="box-doughnut">
         <h4 className="sides text-center">
             <FontAwesomeIcon icon={faVectorSquare}/>
             &nbsp;
             Lados
         </h4>
-        <Doughnut
-            data={sidesResponse}
-            height="250%"
-            options={{
-                tooltips: {
-                    callbacks: {
-                        label: getTooltipLabel
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                plugins: {
-                    datalabels: {
+        {loadingSides ? <FontAwesomeIcon icon={faSpinner} pulse size="3x"/> : (
+            <Doughnut
+                data={sidesResponse}
+                height="250%"
+                options={{
+                    tooltips: {
+                        callbacks: {
+                            label: getTooltipLabel
+                        }
+                    },
+                    legend: {
                         display: false
-                    }
-                },
-                elements: {
-                    center: {
-                        text: sidesResponse.total,
-                        fontStyle: 'Arial',
-                        sidePadding: 20
-                    }
-                },
-                maintainAspectRatio: true,
-                responsive: true
-            }}
-        />
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: false
+                        }
+                    },
+                    elements: {
+                        center: {
+                            text: sidesResponse.total,
+                            fontStyle: 'Arial',
+                            sidePadding: 20
+                        }
+                    },
+                    maintainAspectRatio: true,
+                    responsive: true
+                }}
+            />
+        )}
         <Row>
             <ul className="legend">
                 <li>
@@ -64,7 +67,14 @@ const Sides = ({sidesResponse}) => (
 Sides.propTypes = {
     sidesResponse: PropTypes.shape({
         total: PropTypes.number
-    }).isRequired
+    }).isRequired,
+    loadingSides: PropTypes.bool
 };
 
-export default Sides;
+Sides.defaultProps = {
+    loadingSides: true
+};
+
+export default connect(state => ({
+    loadingSides: state.overview.loadingSides
+}))(Sides);

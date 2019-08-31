@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Row, Col} from 'react-bootstrap';
 import Chart from 'chart.js';
 
@@ -52,16 +53,18 @@ if (Chart) {
 // ¡¡¡¡ IMPORTANT !!!!
 
 const MonitoringGraphics = ({
-    province, state, stateName, response, users, roles
+    province, selectedState, blocks, sides, dwellings, dwellingsTypes
 }) => {
     const {
-        provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypes
-    } = parseResponse(state, province, response);
+        provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypesResponse
+    } = parseResponse(selectedState.state, province, {
+        blocks, sides, dwellings, dwellingsTypes
+    });
     return (
         <Fragment>
             <Row>
                 <Col sm={5}>
-                    <Radios provinceData={provinceData} stateName={stateName}/>
+                    <Radios provinceData={provinceData} stateName={selectedState.name}/>
                 </Col>
                 <Col sm={7}>
                     <Row>
@@ -76,13 +79,13 @@ const MonitoringGraphics = ({
                         </Col>
                     </Row>
                     <Row>
-                        <DwellingsTypes dwellingsTypes={dwellingsTypes}/>
+                        <DwellingsTypes dwellingsTypes={dwellingsTypesResponse}/>
                     </Row>
                 </Col>
             </Row>
             <Row>
                 <Col sm={6}>
-                    <Users {...{users, state, roles}}/>
+                    <Users/>
                 </Col>
                 <Col sm={6}>
                     <Synchronization/>
@@ -93,17 +96,31 @@ const MonitoringGraphics = ({
 };
 
 MonitoringGraphics.propTypes = {
-    province: PropTypes.shape({}).isRequired,
-    response: PropTypes.shape({}).isRequired,
-    users: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    state: PropTypes.number,
-    stateName: PropTypes.string
+    province: PropTypes.shape({}),
+    selectedState: PropTypes.shape({
+        state: PropTypes.number,
+        name: PropTypes.string
+    }),
+    blocks: PropTypes.arrayOf(PropTypes.shape({})),
+    sides: PropTypes.arrayOf(PropTypes.shape({})),
+    dwellings: PropTypes.arrayOf(PropTypes.shape({})),
+    dwellingsTypes: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
 MonitoringGraphics.defaultProps = {
-    state: null,
-    stateName: null
+    blocks: [],
+    sides: [],
+    dwellings: [],
+    dwellingsTypes: [],
+    selectedState: {},
+    province: {}
 };
 
-export default MonitoringGraphics;
+export default connect(state => ({
+    province: state.overview.general,
+    selectedState: state.overview.selectedState,
+    blocks: state.overview.blocks,
+    sides: state.overview.sides,
+    dwellings: state.overview.dwellings,
+    dwellingsTypes: state.overview.dwellingsTypes
+}))(MonitoringGraphics);

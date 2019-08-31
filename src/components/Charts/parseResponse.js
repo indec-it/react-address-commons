@@ -1,8 +1,10 @@
 import {
-    sumBy, filter, sum, subtract, reduce, forEach
+    sumBy, filter, sum, subtract, reduce, forEach, map
 } from 'lodash';
 
-const parseResponse = (state, province, response) => {
+const parseResponse = (state, province, {
+    blocks, sides, dwellings, dwellingsTypes: types
+}) => {
     const filteredProvince = filter(province, p => (state ? p._id.state === state : true));
 
     const unassigned = sumBy(filteredProvince, p => p.unassigned);
@@ -14,7 +16,10 @@ const parseResponse = (state, province, response) => {
     const approved = sumBy(filteredProvince, p => p.approved);
     const done = sumBy(filteredProvince, p => p.done);
 
-    const filterResponse = filter(response, r => (state ? r._id.state === state : true));
+    const filterBlocks = filter(blocks, r => (state ? r._id.state === state : true));
+    const filterSides = filter(sides, r => (state ? r._id.state === state : true));
+    const filterDwellings = filter(dwellings, r => (state ? r._id.state === state : true));
+    const filterDwellingsTypes = filter(types, r => (state ? r._id.state === state : true));
 
     const provinceData = {
         labels: [
@@ -52,11 +57,11 @@ const parseResponse = (state, province, response) => {
         total: sumBy(filteredProvince, p => p.open)
     };
 
-    const edited = sumBy(filterResponse, p => p.editedBlocks);
-    const added = sumBy(filterResponse, p => p.addedBlocks);
-    const trimmed = sumBy(filterResponse, p => p.trimmedBlocks);
-    const deleted = sumBy(filterResponse, p => p.deletedBlocks);
-    const totalBlocks = sumBy(filterResponse, p => p.blocks);
+    const edited = sumBy(filterBlocks, p => p.editedBlocks);
+    const added = sumBy(filterBlocks, p => p.addedBlocks);
+    const trimmed = sumBy(filterBlocks, p => p.trimmedBlocks);
+    const deleted = sumBy(filterBlocks, p => p.deletedBlocks);
+    const totalBlocks = sumBy(filterBlocks, p => p.blocks);
 
     const blocksResponse = {
         labels: [
@@ -82,9 +87,9 @@ const parseResponse = (state, province, response) => {
         total: totalBlocks
     };
 
-    const addedSides = sumBy(filterResponse, p => p.addedSides);
-    const deletedSides = sumBy(filterResponse, p => p.deletedSides);
-    const totalSides = sumBy(filterResponse, p => p.sides);
+    const addedSides = sumBy(filterSides, p => p.addedSides);
+    const deletedSides = sumBy(filterSides, p => p.deletedSides);
+    const totalSides = sumBy(filterSides, p => p.sides);
     const sidesWithoutDwellings = subtract(totalSides, sum([addedSides, deletedSides]));
 
     const sidesResponse = {
@@ -119,19 +124,19 @@ const parseResponse = (state, province, response) => {
                 '#bfc9ca'
             ],
             data: [
-                sumBy(filterResponse, p => p.addedDwellings),
-                sumBy(filterResponse, p => p.deletedDwellings)
+                sumBy(filterDwellings, p => p.addedDwellings),
+                sumBy(filterDwellings, p => p.deletedDwellings)
             ]
         }],
-        total: sumBy(filterResponse, p => p.dwellings)
+        total: sumBy(filterDwellings, p => p.dwellings)
     };
 
     const dwellingTypesNames = [];
     const dwellingTypesValues = [];
-    const responseDwellingTypes = filterResponse.map(p => p.dwellingTypes);
+    const responseDwellingsTypes = map(filterDwellingsTypes, dwellingType => dwellingType.dwellingTypes);
 
     const dwellingTypes = reduce(
-        responseDwellingTypes,
+        responseDwellingsTypes,
         (result, item) => {
             const newResult = {...result};
             forEach(item, (value, key) => {
@@ -148,7 +153,7 @@ const parseResponse = (state, province, response) => {
 
     forEach(dwellingTypes, (value, key) => dwellingTypesNames.push(key) && dwellingTypesValues.push(value));
 
-    const dwellingsTypes = {
+    const dwellingsTypesResponse = {
         labels: dwellingTypesNames,
         datasets: [{
             backgroundColor: [
@@ -175,7 +180,7 @@ const parseResponse = (state, province, response) => {
     };
 
     return {
-        provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypes
+        provinceData, blocksResponse, sidesResponse, dwellingsResponse, dwellingsTypesResponse
     };
 };
 
