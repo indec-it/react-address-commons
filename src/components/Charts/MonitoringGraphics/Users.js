@@ -146,7 +146,6 @@ const Users = ({
 
 Users.propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({})),
-    state: PropTypes.number,
     profile: PropTypes.shape({
         roles: PropTypes.arrayOf(PropTypes.string)
     }).isRequired,
@@ -160,7 +159,6 @@ Users.propTypes = {
 Users.defaultProps = {
     selectedState: {},
     users: [],
-    state: null,
     loadingUsers: true
 };
 
