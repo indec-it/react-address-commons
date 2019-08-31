@@ -1,47 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Doughnut} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faHome} from '@fortawesome/free-solid-svg-icons';
+import {faHome, faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 import {getTooltipLabel} from '../utils';
 
-const Dwellings = ({dwellingsResponse}) => (
+const Dwellings = ({dwellingsResponse, loadingDwellings}) => (
     <div className="box-doughnut">
         <h4 className="dwellings text-center">
             <FontAwesomeIcon icon={faHome}/>
             &nbsp;
             Viviendas
         </h4>
-        <Doughnut
-            data={dwellingsResponse}
-            height="250%"
-            options={{
-                tooltips: {
-                    callbacks: {
-                        label: getTooltipLabel
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                plugins: {
-                    datalabels: {
+        {loadingDwellings ? <FontAwesomeIcon icon={faSpinner} pulse size="3x"/> : (
+            <Doughnut
+                data={dwellingsResponse}
+                height="250%"
+                options={{
+                    tooltips: {
+                        callbacks: {
+                            label: getTooltipLabel
+                        }
+                    },
+                    legend: {
                         display: false
-                    }
-                },
-                elements: {
-                    center: {
-                        text: dwellingsResponse.total,
-                        fontStyle: 'Arial',
-                        sidePadding: 20
-                    }
-                },
-                maintainAspectRatio: true,
-                responsive: true
-            }}
-        />
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: false
+                        }
+                    },
+                    elements: {
+                        center: {
+                            text: dwellingsResponse.total,
+                            fontStyle: 'Arial',
+                            sidePadding: 20
+                        }
+                    },
+                    maintainAspectRatio: true,
+                    responsive: true
+                }}
+            />
+        )}
         <Row>
             <ul className="legend">
                 <li>
@@ -60,7 +63,14 @@ const Dwellings = ({dwellingsResponse}) => (
 Dwellings.propTypes = {
     dwellingsResponse: PropTypes.shape({
         total: PropTypes.number
-    }).isRequired
+    }).isRequired,
+    loadingDwellings: PropTypes.bool
 };
 
-export default Dwellings;
+Dwellings.defaultProps = {
+    loadingDwellings: true
+};
+
+export default connect(state => ({
+    loadingDwellings: state.overview.loadingDwellings
+}))(Dwellings);
