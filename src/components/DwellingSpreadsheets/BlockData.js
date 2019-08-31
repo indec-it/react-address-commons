@@ -16,9 +16,9 @@ const BlockData = ({block}) => (
 
 BlockData.propTypes = {
     block: PropTypes.shape({
-        blockNumber: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
-        sideNumber: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
-        zipCode: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
+        blockNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        sideNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        zipCode: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         streetName: PropTypes.string
     }).isRequired
 };
