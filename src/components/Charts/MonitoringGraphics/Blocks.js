@@ -1,47 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Doughnut} from 'react-chartjs-2';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTh} from '@fortawesome/free-solid-svg-icons';
+import {faSpinner, faTh} from '@fortawesome/free-solid-svg-icons';
 
 import {getTooltipLabel} from '../utils';
 
-const Blocks = ({blocksResponse}) => (
+const Blocks = ({blocksResponse, loadingBlocks}) => (
     <div className="box-doughnut">
         <h4 className="blocks text-center">
             <FontAwesomeIcon icon={faTh}/>
             &nbsp;
             Manzanas
         </h4>
-        <Doughnut
-            data={blocksResponse}
-            height="250%"
-            options={{
-                tooltips: {
-                    callbacks: {
-                        label: getTooltipLabel
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                plugins: {
-                    datalabels: {
+        {loadingBlocks ? <FontAwesomeIcon icon={faSpinner} pulse size="3x"/> : (
+            <Doughnut
+                data={blocksResponse}
+                height="250%"
+                options={{
+                    tooltips: {
+                        callbacks: {
+                            label: getTooltipLabel
+                        }
+                    },
+                    legend: {
                         display: false
-                    }
-                },
-                elements: {
-                    center: {
-                        text: blocksResponse.total,
-                        fontStyle: 'Arial',
-                        sidePadding: 20
-                    }
-                },
-                maintainAspectRatio: true,
-                responsive: true
-            }}
-        />
+                    },
+                    plugins: {
+                        datalabels: {
+                            display: false
+                        }
+                    },
+                    elements: {
+                        center: {
+                            text: blocksResponse.total,
+                            fontStyle: 'Arial',
+                            sidePadding: 20
+                        }
+                    },
+                    maintainAspectRatio: true,
+                    responsive: true
+                }}
+            />
+        )}
         <Row>
             <ul className="legend">
                 <li>
@@ -68,7 +71,14 @@ const Blocks = ({blocksResponse}) => (
 Blocks.propTypes = {
     blocksResponse: PropTypes.shape({
         total: PropTypes.number
-    }).isRequired
+    }).isRequired,
+    loadingBlocks: PropTypes.bool
 };
 
-export default Blocks;
+Blocks.defaultProps = {
+    loadingBlocks: true
+};
+
+export default connect(state => ({
+    loadingBlocks: state.overview.loadingBlocks
+}))(Blocks);
