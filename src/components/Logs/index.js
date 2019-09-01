@@ -13,24 +13,6 @@ import {statePropTypes} from '../../util/propTypes';
 import {requestFetchStates, requestFetchSyncTask} from '../../actions';
 
 class Logs extends PureComponent {
-    static propTypes = {
-        requestFetchSyncTask: PropTypes.func.isRequired,
-        requestFetchStates: PropTypes.func.isRequired,
-        logs: PropTypes.arrayOf(PropTypes.instanceOf(Log)),
-        states: PropTypes.arrayOf(statePropTypes),
-        pageSize: PropTypes.number,
-        logsCount: PropTypes.number,
-        loading: PropTypes.bool
-    };
-
-    static defaultProps = {
-        logs: [],
-        states: [],
-        logsCount: 0,
-        pageSize: 0,
-        loading: false
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -77,9 +59,10 @@ class Logs extends PureComponent {
                     </Col>
                 </Row>
                 <UserSearchParams
-                    {...{
-                        states, state, rol, term
-                    }}
+                    state={state}
+                    states={states}
+                    rol={rol}
+                    term={term}
                     roles={[{_id: 'su', name: 'Supervisor'}, {_id: 'po', name: 'Actualizador'}]}
                     onChange={e => this.handleChange(e)}
                     onSubmit={() => this.handleSubmit()}
@@ -89,7 +72,8 @@ class Logs extends PureComponent {
                     <Fragment>
                         <LogsTable logs={logs}/>
                         <Pages
-                            {...{pageSize, selectedPage}}
+                            pageSize={pageSize}
+                            selectedPage={selectedPage}
                             resultsCount={logsCount}
                             onChange={page => this.handleChangePage(page)}
                         />
@@ -100,6 +84,24 @@ class Logs extends PureComponent {
     }
 }
 
+Logs.propTypes = {
+    requestFetchSyncTask: PropTypes.func.isRequired,
+    requestFetchStates: PropTypes.func.isRequired,
+    logs: PropTypes.arrayOf(PropTypes.instanceOf(Log)),
+    states: PropTypes.arrayOf(statePropTypes),
+    pageSize: PropTypes.number,
+    logsCount: PropTypes.number,
+    loading: PropTypes.bool
+};
+
+Logs.defaultProps = {
+    logs: [],
+    states: [],
+    logsCount: 0,
+    pageSize: 0,
+    loading: false
+};
+
 export default connect(
     state => ({
         states: state.review.states,
@@ -108,8 +110,5 @@ export default connect(
         logsCount: state.log.logsCount,
         loading: state.log.loading
     }),
-    dispatch => ({
-        requestFetchSyncTask: (state, rol, term, skip) => dispatch(requestFetchSyncTask(state, rol, term, skip)),
-        requestFetchStates: () => dispatch(requestFetchStates())
-    })
+    {requestFetchSyncTask, requestFetchStates}
 )(Logs);

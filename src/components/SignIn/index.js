@@ -15,13 +15,6 @@ import UserService from '../../services/user';
 import {roles as sessionRoles} from '../../constants';
 
 class SignIn extends Component {
-    static propTypes = {
-        requestSession: PropTypes.func.isRequired,
-        history: PropTypes.shape({
-            push: PropTypes.func
-        }).isRequired
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -136,9 +129,14 @@ class SignIn extends Component {
     }
 }
 
+SignIn.propTypes = {
+    requestSession: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+        push: PropTypes.func
+    }).isRequired
+};
+
 export default connect(
     null,
-    dispatch => ({
-        requestSession: () => dispatch(requestSession())
-    })
+    {requestSession}
 )(SignIn);

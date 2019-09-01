@@ -12,33 +12,6 @@ import RadioData from './RadioData';
 import UserTable from './UserTable';
 
 class BlockSpreadsheets extends PureComponent {
-    static propTypes = {
-        requestBlockSpreadsheets: PropTypes.func.isRequired,
-        match: PropTypes.shape({
-            params: PropTypes.shape({})
-        }).isRequired,
-        blocks: PropTypes.arrayOf(PropTypes.shape({
-            state: PropTypes.string,
-            department: PropTypes.string,
-            locality: PropTypes.number,
-            fraction: PropTypes.number,
-            radio: PropTypes.number,
-            ups: PropTypes.number,
-            agglomerate: PropTypes.number,
-            blockNumber: PropTypes.string,
-            data: PropTypes.arrayOf(PropTypes.shape({}))
-        })),
-        radioData: radioPropTypes,
-        loading: PropTypes.bool,
-        path: PropTypes.string.isRequired
-    };
-
-    static defaultProps = {
-        blocks: [],
-        radioData: {},
-        loading: false
-    };
-
     componentDidMount() {
         this.props.requestBlockSpreadsheets(this.props.match.params);
     }
@@ -76,13 +49,38 @@ class BlockSpreadsheets extends PureComponent {
     }
 }
 
+BlockSpreadsheets.propTypes = {
+    requestBlockSpreadsheets: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({})
+    }).isRequired,
+    blocks: PropTypes.arrayOf(PropTypes.shape({
+        state: PropTypes.string,
+        department: PropTypes.string,
+        locality: PropTypes.number,
+        fraction: PropTypes.number,
+        radio: PropTypes.number,
+        ups: PropTypes.number,
+        agglomerate: PropTypes.number,
+        blockNumber: PropTypes.string,
+        data: PropTypes.arrayOf(PropTypes.shape({}))
+    })),
+    radioData: radioPropTypes,
+    loading: PropTypes.bool,
+    path: PropTypes.string.isRequired
+};
+
+BlockSpreadsheets.defaultProps = {
+    blocks: [],
+    radioData: {},
+    loading: false
+};
+
 export default connect(
     state => ({
         radioData: state.spreadsheet.radioData,
         blocks: state.spreadsheet.blocks,
         loading: state.spreadsheet.loading
     }),
-    dispatch => ({
-        requestBlockSpreadsheets: params => dispatch(requestBlockSpreadsheets(params))
-    })
+    {requestBlockSpreadsheets}
 )(BlockSpreadsheets);

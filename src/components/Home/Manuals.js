@@ -8,27 +8,6 @@ import {
 import {requestFetchManuals, requestFetchVersion} from '../../actions';
 
 class Manuals extends PureComponent {
-    static propTypes = {
-        requestFetchVersion: PropTypes.func.isRequired,
-        requestFetchManuals: PropTypes.func.isRequired,
-        version: PropTypes.string,
-        date: PropTypes.string,
-        manuals: PropTypes.arrayOf(
-            PropTypes.shape({
-                _id: PropTypes.string,
-                url: PropTypes.string,
-                title: PropTypes.string,
-                roles: PropTypes.arrayOf(PropTypes.string)
-            })
-        )
-    };
-
-    static defaultProps = {
-        version: null,
-        date: null,
-        manuals: []
-    };
-
     componentDidMount() {
         this.props.requestFetchVersion();
         this.props.requestFetchManuals();
@@ -78,14 +57,32 @@ class Manuals extends PureComponent {
     }
 }
 
+Manuals.propTypes = {
+    requestFetchVersion: PropTypes.func.isRequired,
+    requestFetchManuals: PropTypes.func.isRequired,
+    version: PropTypes.string,
+    date: PropTypes.string,
+    manuals: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string,
+            url: PropTypes.string,
+            title: PropTypes.string,
+            roles: PropTypes.arrayOf(PropTypes.string)
+        })
+    )
+};
+
+Manuals.defaultProps = {
+    version: null,
+    date: null,
+    manuals: []
+};
+
 export default connect(
     state => ({
         version: state.version.version,
         date: state.version.date,
         manuals: state.manuals.manuals
     }),
-    dispatch => ({
-        requestFetchVersion: () => dispatch(requestFetchVersion()),
-        requestFetchManuals: () => dispatch(requestFetchManuals())
-    })
+    {requestFetchVersion, requestFetchManuals}
 )(Manuals);

@@ -16,22 +16,6 @@ import {User} from '../../../model';
 const invalidFile = () => window.alert('Solo formato PNG son admitidos');
 
 class Credentials extends PureComponent {
-    static propTypes = {
-        requestUser: PropTypes.func.isRequired,
-        title: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        match: PropTypes.shape({
-            params: PropTypes.shape({
-                id: PropTypes.string.isRequired
-            }).isRequired
-        }).isRequired,
-        userProfile: PropTypes.instanceOf(User)
-    };
-
-    static defaultProps = {
-        userProfile: null
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -70,9 +54,11 @@ class Credentials extends PureComponent {
                             >
                                 {({getRootProps, getInputProps}) => (
                                     <div
+                                        // eslint-disable-next-line
                                         {...getRootProps()}
                                         className="dropzonestyle"
                                     >
+                                        {/* eslint-disable-next-line */}
                                         <input {...getInputProps()}/>
                                         <p>Haga Click o Arrastre para agregar una Foto</p>
                                     </div>
@@ -126,11 +112,25 @@ class Credentials extends PureComponent {
     }
 }
 
+Credentials.propTypes = {
+    requestUser: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.string.isRequired
+        }).isRequired
+    }).isRequired,
+    userProfile: PropTypes.instanceOf(User)
+};
+
+Credentials.defaultProps = {
+    userProfile: null
+};
+
 export default connect(
     state => ({
         userProfile: state.user.user
     }),
-    dispatch => ({
-        requestUser: id => dispatch(requestUser(id))
-    })
+    {requestUser}
 )(Credentials);

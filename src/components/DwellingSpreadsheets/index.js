@@ -11,29 +11,6 @@ import DwellingsTable from './DwellingsTable';
 import RadioData from './RadioData';
 
 class DwellingSpreadsheets extends PureComponent {
-    static propTypes = {
-        requestDwellingSpreadsheets: PropTypes.func.isRequired,
-        match: PropTypes.shape({
-            params: PropTypes.shape({})
-        }).isRequired,
-        blocks: PropTypes.arrayOf(PropTypes.shape({
-            blockNumber: PropTypes.number,
-            sideNumber: PropTypes.number,
-            dwellings: PropTypes.arrayOf(
-                PropTypes.shape({})
-            )
-        })),
-        radioData: radioPropTypes,
-        loading: PropTypes.bool,
-        path: PropTypes.string.isRequired
-    };
-
-    static defaultProps = {
-        blocks: [],
-        radioData: {},
-        loading: false
-    };
-
     componentDidMount() {
         this.props.requestDwellingSpreadsheets(this.props.match.params);
     }
@@ -69,13 +46,34 @@ class DwellingSpreadsheets extends PureComponent {
     }
 }
 
+DwellingSpreadsheets.propTypes = {
+    requestDwellingSpreadsheets: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({})
+    }).isRequired,
+    blocks: PropTypes.arrayOf(PropTypes.shape({
+        blockNumber: PropTypes.number,
+        sideNumber: PropTypes.number,
+        dwellings: PropTypes.arrayOf(
+            PropTypes.shape({})
+        )
+    })),
+    radioData: radioPropTypes,
+    loading: PropTypes.bool,
+    path: PropTypes.string.isRequired
+};
+
+DwellingSpreadsheets.defaultProps = {
+    blocks: [],
+    radioData: {},
+    loading: false
+};
+
 export default connect(
     state => ({
         radioData: state.spreadsheet.radioData,
         blocks: state.spreadsheet.dwellings,
         loading: state.spreadsheet.loading
     }),
-    dispatch => ({
-        requestDwellingSpreadsheets: params => dispatch(requestDwellingSpreadsheets(params))
-    })
+    {requestDwellingSpreadsheets}
 )(DwellingSpreadsheets);

@@ -33,13 +33,13 @@ const renderPopover = userDetails => (
     </Popover>
 );
 
-const UserDetails = ({userDetails, icon, ...props}) => (
+const UserDetails = ({userDetails, icon}) => (
     <OverlayTrigger
         trigger={['hover', 'focus']}
         placement="top"
         overlay={renderPopover(userDetails)}
     >
-        <Icon icon={icon} {...props}/>
+        <Icon icon={icon}/>
     </OverlayTrigger>
 );
 
