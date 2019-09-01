@@ -6,13 +6,6 @@ import {requestFetchRadios} from '../../actions/radios';
 import Radios from './Radios';
 
 class DwellingsList extends PureComponent {
-    static propTypes = {
-        requestFetchRadios: PropTypes.func.isRequired,
-        match: PropTypes.shape({
-            params: PropTypes.shape({})
-        }).isRequired
-    };
-
     componentDidMount() {
         this.props.requestFetchRadios(this.props.match.params);
     }
@@ -24,9 +17,14 @@ class DwellingsList extends PureComponent {
     }
 }
 
+DwellingsList.propTypes = {
+    requestFetchRadios: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({})
+    }).isRequired
+};
+
 export default connect(
     null,
-    dispatch => ({
-        requestFetchRadios: params => dispatch(requestFetchRadios(params))
-    })
+    {requestFetchRadios}
 )(DwellingsList);

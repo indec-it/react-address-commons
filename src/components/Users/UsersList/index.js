@@ -33,26 +33,6 @@ const getRoles = sessionRoles => {
 };
 
 class UsersList extends PureComponent {
-    static propTypes = {
-        requestUsers: PropTypes.func.isRequired,
-        sessionRoles: PropTypes.arrayOf(PropTypes.string),
-        states: PropTypes.arrayOf(statePropTypes),
-        users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
-        loading: PropTypes.bool,
-        usersCount: PropTypes.number,
-        userCredentialsRoute: PropTypes.string.isRequired,
-        pageSize: PropTypes.number
-    };
-
-    static defaultProps = {
-        users: [],
-        states: [],
-        sessionRoles: [],
-        usersCount: 0,
-        pageSize: 0,
-        loading: false
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -98,7 +78,9 @@ class UsersList extends PureComponent {
                     </Col>
                 </Row>
                 <UserSearchParams
-                    {...{state, rol, term}}
+                    state={state}
+                    rol={rol}
+                    term={term}
                     states={states ? concat([{_id: null, name: '[Todas]'}], states) : states}
                     roles={getRoles(sessionRoles)}
                     onChange={e => this.handleChange(e)}
@@ -128,6 +110,26 @@ class UsersList extends PureComponent {
     }
 }
 
+UsersList.propTypes = {
+    requestUsers: PropTypes.func.isRequired,
+    sessionRoles: PropTypes.arrayOf(PropTypes.string),
+    states: PropTypes.arrayOf(statePropTypes),
+    users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
+    loading: PropTypes.bool,
+    usersCount: PropTypes.number,
+    userCredentialsRoute: PropTypes.string.isRequired,
+    pageSize: PropTypes.number
+};
+
+UsersList.defaultProps = {
+    users: [],
+    states: [],
+    sessionRoles: [],
+    usersCount: 0,
+    pageSize: 0,
+    loading: false
+};
+
 export default connect(
     state => ({
         users: state.user.users,
@@ -137,7 +139,5 @@ export default connect(
         states: state.user.states,
         sessionRoles: state.session.profile.roles
     }),
-    dispatch => ({
-        requestUsers: (state, rol, term, skip) => dispatch(requestUsers(state, rol, term, skip))
-    })
+    {requestUsers}
 )(UsersList);
