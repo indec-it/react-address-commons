@@ -1,6 +1,6 @@
 {
   "name": "@indec/react-address-commons",
-  "version": "2.3.4",
+  "version": "2.4.4",
   "description": "Common react components for address apps",
   "private": false,
   "main": "src/index.js",
