@@ -11,7 +11,7 @@ import {requestFetchLogsByState} from '../../actions/overview';
 
 class Dashboard extends PureComponent {
     componentDidMount() {
-        this.props.fetchOverview();
+        this.props.fetchOverview(this.props.profile);
     }
 
     componentWillUnmount() {
@@ -53,19 +53,34 @@ Dashboard.propTypes = {
         state: PropTypes.number,
         name: PropTypes.string
     }),
-    availableStates: PropTypes.arrayOf(PropTypes.shape({}))
+    availableStates: PropTypes.arrayOf(PropTypes.shape({})),
+    profile: PropTypes.shape({
+        name: PropTypes.string,
+        surname: PropTypes.string,
+        email: PropTypes.string,
+        documentId: PropTypes.number,
+        state: PropTypes.number,
+        createdAt: PropTypes.string,
+        roles: PropTypes.arrayOf(PropTypes.string),
+        username: PropTypes.string,
+        disabled: PropTypes.bool,
+        updatedAt: PropTypes.string,
+        isNationalCoordinator: PropTypes.bool
+    })
 };
 
 Dashboard.defaultProps = {
     availableStates: [],
-    selectedState: {}
+    selectedState: {},
+    profile: {}
 };
 
 export default connect(
     state => ({
         selectedState: state.overview.selectedState,
         availableStates: state.overview.availableStates,
-        isNationalCoordinator: state.overview.isNationalCoordinator
+        isNationalCoordinator: state.overview.isNationalCoordinator,
+        profile: state.session.profile
     }),
     {
         fetchOverview, cleanOverviewReducer, setMapState, cleanMapSelection, requestFetchLogsByState
