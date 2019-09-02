@@ -2,7 +2,7 @@ export const OVERVIEW_FETCH_REQUESTED = 'OVERVIEW_FETCH_REQUESTED';
 export const OVERVIEW_FETCH_SUCCEEDED = 'OVERVIEW_FETCH_SUCCEEDED';
 export const OVERVIEW_CLEAN_REDUCER = 'OVERVIEW_CLEAN_REDUCER';
 
-export const fetchOverview = () => ({type: OVERVIEW_FETCH_REQUESTED});
+export const fetchOverview = profile => ({type: OVERVIEW_FETCH_REQUESTED, profile});
 
 export const receiveOverview = (areas, availableStates, isNationalCoordinator) => ({
     type: OVERVIEW_FETCH_SUCCEEDED, areas, availableStates, isNationalCoordinator
