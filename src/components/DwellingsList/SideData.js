@@ -25,6 +25,9 @@ const SideData = ({side, street}) => (
             <Col sm={4}>
                 {`Cod. Postal: ${side.postalCode || ''}`}
             </Col>
+            <Col sm={4}>
+                {`Observaciones: ${side.observations || ''}`}
+            </Col>
         </Row>
     </Fragment>
 );
@@ -33,7 +36,8 @@ SideData.propTypes = {
     side: PropTypes.shape({
         initialNumber: PropTypes.number,
         finalNumber: PropTypes.number,
-        postalCode: PropTypes.number
+        postalCode: PropTypes.number,
+        observations: PropTypes.string
     }),
     street: PropTypes.shape({
         code: PropTypes.number,
