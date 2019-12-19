@@ -23,7 +23,7 @@ const BlocksTable = ({blocks}) => (
                     <td className="column-sm">{block.finalNumber}</td>
                     <td className="column-sm">{block.postalCode}</td>
                     <td className="column-md"/>
-                    <td className="column-md column-lg empty-block"/>
+                    <td className="column-md column-lg empty-block">{block.observations}</td>
                 </tr>
             ))}
         </tbody>
@@ -38,7 +38,8 @@ BlocksTable.propTypes = {
             streetName: PropTypes.string,
             initialNumber: PropTypes.number,
             finalNumber: PropTypes.number,
-            postalCode: PropTypes.number
+            postalCode: PropTypes.number,
+            observations: PropTypes.string
         })
     ).isRequired
 };
